@@ -13,8 +13,18 @@ entry.json:
   "excerpt": "...",                 // 1-2 kalimat di daftar
   "body": "...",                    // isi modal (teks biasa; akan di-escape)
   "thumb": "assets/journal/2026-11-06-xxx.webp",
-  "thumb_alt": "Ilustrasi ..."
+  "thumb_alt": "Foto ... (Foto: Nama via Wikimedia Commons, lisensi)",
+  "images": [                      // galeri artikel (WAJIB >= 4 untuk edisi baru)
+    {"src": "assets/journal/...-foto.webp", "kind": "FOTO ASLI",
+     "caption": "... — Nama via Wikimedia Commons (CC BY-SA 4.0)"},
+    {"src": "assets/journal/...-ilustrasi-ai.webp", "kind": "ILUSTRASI AI",
+     "caption": "Ilustrasi AI: ... — bukan foto"}
+  ]
 }
+
+Aturan gambar (keputusan user 2026-11-06): fokus visual — setiap artikel baru
+WAJIB banyak gambar (>= 4), dokumentasi foto ASLI wajib ada (>= 2, berkredit),
+ilustrasi AI boleh dan WAJIB berlabel kind "ILUSTRASI AI".
 
 Yang dilakukan:
 1. Semua .journal-row lama: data-note +1, href #note-(n+1).
@@ -23,6 +33,7 @@ Yang dilakukan:
 4. Maksimal MAX_ROWS baris di beranda; sisanya terpotong dari HTML
    (arsip tetap ada di journal/*.md dan riwayat git).
 5. Validasi: jumlah baris == jumlah notesData, data-note berurutan 0..n-1.
+6. Bangun ulang artikel.html (halaman penuh Artikel/Jurnal) dari notesData.
 """
 import json
 import re
@@ -78,11 +89,18 @@ def main() -> None:
     html = html.replace(anchor, anchor + row, 1)
 
     # --- 3) unshift notesData ---
+    images_js = ""
+    if e.get("images"):
+        items = ",\n".join(
+            "            { src: %s, kind: %s, caption: %s }"
+            % (js_str(im["src"]), js_str(im["kind"]), js_str(im["caption"]))
+            for im in e["images"])
+        images_js = ",\n          images: [\n" + items + "\n          ]"
     obj = (
         "        {\n"
         f"          date: {js_str(e['date'] + ' / ' + e['category'])},\n"
         f"          title: {js_str(e['title'])},\n"
-        f"          body: {js_str(e['body'])}\n"
+        f"          body: {js_str(e['body'])}{images_js}\n"
         "        },\n"
     )
     anchor2 = "const notesData = [\n"
@@ -100,14 +118,25 @@ def main() -> None:
             r"(        \{[^{}]*\},\n)        \{[^{}]*\},\n      \];",
             lambda m: m.group(1) + "      ];", html, count=1) \
             if False else html
-        # cara aman: potong objek terakhir tepat sebelum "];" milik notesData
+        # cara aman: potong objek terakhir notesData dengan pemindai kurung
+        # yang sadar string (tahan array images[] bersarang di dalam objek)
         i = html.find("const notesData = [")
         j = html.find("];", i)
         seg = html[i:j]
-        objs = seg.rstrip()
-        assert objs.endswith("},"), "objek terakhir notesData tidak berakhir },"
-        seg2 = objs[: objs.rfind("        {")]
-        html = html[:i] + seg2 + html[j:]
+        starts, depth, in_str, esc_ch = [], 0, False, False
+        for k, ch in enumerate(seg):
+            if in_str:
+                if esc_ch: esc_ch = False
+                elif ch == "\\": esc_ch = True
+                elif ch == "'": in_str = False
+                continue
+            if ch == "'": in_str = True
+            elif ch == "{":
+                if depth == 0: starts.append(k)
+                depth += 1
+            elif ch == "}": depth -= 1
+        assert len(starts) >= 2, "objek notesData < 2 saat pemotongan"
+        html = html[:i] + seg[: starts[-1]] + html[j:]
 
     # --- 5) validasi ---
     n_rows = len(re.findall(r'class="journal-row"', html))
@@ -122,6 +151,18 @@ def main() -> None:
     with open(INDEX, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"OK: entri '{e['title'][:60]}' masuk. Baris jurnal sekarang: {n_rows}")
+
+    # --- 6) bangun ulang halaman penuh artikel.html ---
+    import os
+    import subprocess
+    builder = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                           "build_artikel_page.py")
+    r = subprocess.run([sys.executable, builder], capture_output=True, text=True)
+    print(r.stdout.strip() or r.stderr[:400])
+    assert r.returncode == 0, "build_artikel_page.py gagal"
+    page = open("artikel.html", encoding="utf-8").read()
+    assert e["title"].replace("&", "&amp;") in page or e["title"] in page, \
+        "judul entri baru tidak ada di artikel.html"
 
 
 if __name__ == "__main__":

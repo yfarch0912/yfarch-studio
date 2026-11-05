@@ -27,3 +27,10 @@ Perbaikan yang diterapkan:
 Uji: `node --check` skrip inline lulus; smoke jsdom **9/9 PASS** (modal jurnal+struktur+kredit, daftar 5 edisi & navigasinya, link IG asli, form→wa.me berisi data, modal karya 6 tanpa klaim 24).
 
 Catatan sisa (jujur): berkas tetap 1,65 MB (16 gambar data-URI bawaan desain awal) — pemisahan aset bisa menurunkan bobot, tetapi mengubah karakter berkas tunggal kiriman user; belum dilakukan. Slot jadwal konsultasi masih label hari statis (Kam/Jum/Sen/Sel) bawaan desain; tanggal dinamis belum dipasang.
+
+## Ronde 3 — Artikel/Jurnal + halaman penuh + galeri dokumentasi (2026-11-06, perintah user)
+- Nama diganti "Jurnal" → "Artikel/Jurnal" di seluruh situs (nav, judul seksi, masthead, meta/OG/JSON-LD, modal, footer).
+- Halaman penuh baru: artikel.html (dibangun tools/build_artikel_page.py dari notesData) — semua artikel tampil utuh + galeri; tombol beranda "Semua artikel" kini menaut ke sana (modal daftar edisi dihapus).
+- Fokus visual (aturan user): setiap artikel bergaleri banyak gambar; dokumentasi foto ASLI wajib ada & berkredit; ilustrasi AI boleh dengan label "ILUSTRASI AI". Edisi GEM kini 4 gambar: 3 foto asli Wikimedia Commons (Fatima Ayman CC0; Holger Uwe Schmitt CC BY-SA 4.0; Slyronit CC BY-SA 4.0) + 1 ilustrasi AI aksonometrik berlabel.
+- Thumbnail 4 entri arsip lama diekstrak dari data-URI menjadi berkas assets/journal/arsip-1..4.webp (kind "DOKUMENTASI STUDIO"); index.html menyusut ±105KB.
+- tools/add_journal_entry.py: mendukung field images[], pemotong objek tahan kurung bersarang, dan membangun ulang artikel.html setiap entri baru.

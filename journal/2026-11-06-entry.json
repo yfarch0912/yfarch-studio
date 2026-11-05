@@ -1,1 +1,32 @@
-{"body":"Lihat journal/2026-11-06-grand-egyptian-museum.md — sejak revisi audit ronde 2 (2026-11-06), isi entri ini memakai struktur telaah pakar (OBJEK & KONTEKS / METODE 1-3 / RELEVANSI TROPIS / SUMBER & FOTO) dan tersimpan utuh di index.html (notesData[0]) serta diringkas di berkas .md pendamping.","category":"ARSITEKTUR DUNIA","date":"06 NOV 2026","excerpt":"Telaah pakar atas museum terbesar di dunia untuk satu peradaban (Heneghan Peng Architects, dibuka penuh 1 Nov 2025): bagaimana geometri baji dikunci ke sumbu piramida, fasad alabaster bekerja sebagai penyaring cahaya pasif, dan tangga enam lantai menyusun narasi kronologis — beserta relevansinya untuk desain iklim panas di Indonesia.","read":"5 min read","thumb":"assets/journal/2026-11-06-grand-egyptian-museum-foto.webp","thumb_alt":"Foto asli fasad Grand Egyptian Museum, Giza — panel segitiga alabaster dan gerbang piramida (Foto: Fatima Ayman via Wikimedia Commons, CC0)","title":"Bedah metode Grand Egyptian Museum: geometri baji sejajar piramida & fasad alabaster penyaring cahaya gurun"}
+{
+ "body": "Lihat journal/2026-11-06-grand-egyptian-museum.md — sejak revisi audit ronde 2 (2026-11-06), isi entri ini memakai struktur telaah pakar (OBJEK & KONTEKS / METODE 1-3 / RELEVANSI TROPIS / SUMBER & FOTO) dan tersimpan utuh di index.html (notesData[0]) serta diringkas di berkas .md pendamping.",
+ "category": "ARSITEKTUR DUNIA",
+ "date": "06 NOV 2026",
+ "excerpt": "Telaah pakar atas museum terbesar di dunia untuk satu peradaban (Heneghan Peng Architects, dibuka penuh 1 Nov 2025): bagaimana geometri baji dikunci ke sumbu piramida, fasad alabaster bekerja sebagai penyaring cahaya pasif, dan tangga enam lantai menyusun narasi kronologis — beserta relevansinya untuk desain iklim panas di Indonesia.",
+ "read": "5 min read",
+ "thumb": "assets/journal/2026-11-06-grand-egyptian-museum-foto.webp",
+ "thumb_alt": "Foto asli fasad Grand Egyptian Museum, Giza — panel segitiga alabaster dan gerbang piramida (Foto: Fatima Ayman via Wikimedia Commons, CC0)",
+ "title": "Bedah metode Grand Egyptian Museum: geometri baji sejajar piramida & fasad alabaster penyaring cahaya gurun",
+ "images": [
+  {
+   "src": "assets/journal/2026-11-06-grand-egyptian-museum-foto.webp",
+   "kind": "FOTO ASLI",
+   "caption": "Fasad alabaster segitiga & gerbang piramida GEM — Fatima Ayman via Wikimedia Commons (CC0)"
+  },
+  {
+   "src": "assets/journal/2026-11-06-gem-grand-hall-foto.webp",
+   "kind": "FOTO ASLI",
+   "caption": "Grand Hall: patung Ramesses II di bawah atap kisi alabaster — Holger Uwe Schmitt via Wikimedia Commons (CC BY-SA 4.0)"
+  },
+  {
+   "src": "assets/journal/2026-11-06-gem-grand-staircase-foto.webp",
+   "kind": "FOTO ASLI",
+   "caption": "Grand Staircase: promenade kronologis enam lantai — Slyronit via Wikimedia Commons (CC BY-SA 4.0)"
+  },
+  {
+   "src": "assets/journal/2026-11-06-gem-ilustrasi-ai.webp",
+   "kind": "ILUSTRASI AI",
+   "caption": "Ilustrasi AI: diagram aksonometrik geometri baji GEM, sumbu terkunci ke piramida Giza — bukan foto"
+  }
+ ]
+}
