@@ -46,3 +46,7 @@ Catatan sisa (jujur): berkas tetap 1,65 MB (16 gambar data-URI bawaan desain awa
 - Kursor lama (panah bawaan + titik lime membuntuti + ring putus-putus) diganti kursor invert ala galeri: titik kecil putih mix-blend-mode:difference mengikuti pointer rapat (lerp 0.4); panah bawaan disembunyikan hanya pada pointer halus (html.custom-cursor-on dari JS + media pointer:fine ≥769px; sentuh/HP tetap bawaan).
 - Masuk area gambar (data-cursor="lens": showreel, 6 kartu karya, 6 baris artikel): titik memudar dan ring berubah jadi bulatan besar 88px putih difference (invert penuh). Di tautan/tombol: membesar sedang (18px/48px). Di kolom isian: kursor kustom sembunyi, kursor teks bawaan bekerja.
 - State kini via delegasi mouseover (tahan konten dinamis/modal/chat). Smoke jsdom 8/8.
+
+## Ronde 6 — Smooth scrolling Lenis + perbaikan modal (2026-11-06, perintah user)
+- Mesin gulir lama (hijack roda buatan sendiri) diganti Lenis 1.1.18 (CDN jsdelivr): fisika durasi 1,25 dtk, gulir tetap natif (sticky/parallax/reveal utuh), stop saat modal terbuka, data-lenis-prevent pada kartu modal & panel chat. Cadangan: tanpa CDN / prefers-reduced-motion → gulir bawaan + behavior smooth. Halaman artikel ikut memakai Lenis (snippet di builder).
+- PERBAIKAN REGRESI ronde 5: openModal masih memanggil bindCursorTargets() yang sudah dihapus saat kursor diganti delegasi → berpotensi ReferenceError saat modal dibuka. Panggilan basi dibuang; teruji modal karya buka/tutup bersih (smoke 6/6).

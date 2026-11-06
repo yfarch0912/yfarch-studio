@@ -80,5 +80,23 @@
     <a href="/artikel">Semua artikel</a>
     <a href="https://wa.me/6282142424750" target="_blank" rel="noopener">WhatsApp 082142424750</a>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    (function () {
+      if (!window.Lenis) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var lenis = new Lenis({ duration: 1.2, smoothWheel: true });
+      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var sel = a.getAttribute('href');
+          var target = sel && sel.length > 1 ? document.querySelector(sel) : null;
+          if (target) { e.preventDefault(); lenis.scrollTo(target); }
+        });
+      });
+    })();
+  </script>
+
 </body>
 </html>

@@ -3273,7 +3273,7 @@
       <button type="button" class="ai-chat-close" id="ai-chat-close" aria-label="Tutup Chat AI" data-cursor="button">✕</button>
     </div>
 
-    <div class="ai-chat-messages" id="ai-chat-messages">
+    <div class="ai-chat-messages" id="ai-chat-messages" data-lenis-prevent>
       <div class="ai-msg bot">
         Halo! Saya <strong>asisten virtual</strong> dari <strong>YFArchitect Studio (Probolinggo)</strong>.<br/><br/>
         Tanyakan tentang detail <strong>Rumah Tropis Atap Miring 1 Sisi (Mono-Pitch)</strong>, <strong>kolom menerus pondasi-ke-atap</strong>, <strong>estimasi biaya (RAB)</strong>, atau hubungi langsung WA <strong>082142424750</strong> / IG <strong>@yfarch</strong>.
@@ -3295,7 +3295,7 @@
 
   <!-- INTERACTIVE MODAL -->
   <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-card">
+    <div class="modal-card" data-lenis-prevent>
       <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close modal" data-cursor="button">✕</button>
       <div id="modal-body-content">
         <h3 id="modal-title" style="font-size:28px;font-weight:500;letter-spacing:-0.03em">YFArchitect Studio</h3>
@@ -3306,59 +3306,30 @@
   <!-- TOAST NOTIFICATION -->
   <div class="toast-banner" id="toast-banner" role="status" aria-live="polite"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
   <script>
     (function () {
       /* ======================================================================
-         1. INERTIAL SMOOTH SCROLLING ENGINE (LENIS-GRADE PHYSICS SMOOTH SCROLL)
+         1. SMOOTH SCROLLING — Lenis: gulir roda/trackpad dihaluskan dengan
+         fisika (durasi 1,25 dtk). Gulir tetap natif sehingga sticky,
+         parallax, dan reveal tidak berubah; modal terbuka = lenis.stop().
+         Cadangan bila CDN gagal / prefers-reduced-motion: gulir bawaan
+         peramban + behavior smooth untuk lompatan jangkar.
          ====================================================================== */
-      let targetScrollY = window.scrollY;
-      let currentScrollY = window.scrollY;
-      let isSmoothScrolling = false;
-
-      function getMaxScroll() {
-        return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      let lenis = null;
+      const prefersReducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      if (window.Lenis && !prefersReducedMotion) {
+        lenis = new Lenis({ duration: 1.25, smoothWheel: true });
+        window.__lenis = lenis;
+        const lenisRaf = function (time) { lenis.raf(time); requestAnimationFrame(lenisRaf); };
+        requestAnimationFrame(lenisRaf);
       }
-
-      window.addEventListener('wheel', function (e) {
-        if (document.getElementById('modal-backdrop').classList.contains('open')) return;
-        if (e.target.closest('#ai-chat-panel')) return;
-        e.preventDefault();
-        const delta = e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY;
-        targetScrollY = Math.max(0, Math.min(getMaxScroll(), targetScrollY + delta));
-        if (!isSmoothScrolling) {
-          isSmoothScrolling = true;
-          requestAnimationFrame(smoothScrollLoop);
-        }
-      }, { passive: false });
-
-      window.addEventListener('scroll', function () {
-        if (!isSmoothScrolling) {
-          targetScrollY = window.scrollY;
-          currentScrollY = window.scrollY;
-        }
-      }, { passive: true });
 
       function smoothScrollTo(destY) {
-        targetScrollY = Math.max(0, Math.min(getMaxScroll(), destY));
-        if (!isSmoothScrolling) {
-          isSmoothScrolling = true;
-          requestAnimationFrame(smoothScrollLoop);
-        }
-      }
-
-      function smoothScrollLoop() {
-        const diff = targetScrollY - currentScrollY;
-        if (Math.abs(diff) > 0.45) {
-          currentScrollY += diff * 0.095;
-          window.scrollTo(0, currentScrollY);
-          onScrollUpdate(currentScrollY);
-          requestAnimationFrame(smoothScrollLoop);
-        } else {
-          currentScrollY = targetScrollY;
-          window.scrollTo(0, currentScrollY);
-          onScrollUpdate(currentScrollY);
-          isSmoothScrolling = false;
-        }
+        const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const y = Math.max(0, Math.min(max, destY));
+        if (lenis) lenis.scrollTo(y);
+        else window.scrollTo({ top: y, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
       }
 
       document.querySelectorAll('.smooth-anchor').forEach(function (link) {
@@ -4656,7 +4627,7 @@
       }
 
       window.addEventListener('scroll', function () {
-        if (!isSmoothScrolling) onScrollUpdate(window.scrollY);
+        onScrollUpdate(window.scrollY);
       }, { passive: true });
       onScrollUpdate(window.scrollY);
 
@@ -4785,11 +4756,12 @@
       function openModal(html) {
         modalBody.innerHTML = html;
         modalBackdrop.classList.add('open');
-        bindCursorTargets();
+        if (lenis) lenis.stop();
       }
 
       function closeModal() {
         modalBackdrop.classList.remove('open');
+        if (lenis) lenis.start();
       }
 
       modalCloseBtn.addEventListener('click', closeModal);
