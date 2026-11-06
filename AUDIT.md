@@ -34,3 +34,10 @@ Catatan sisa (jujur): berkas tetap 1,65 MB (16 gambar data-URI bawaan desain awa
 - Fokus visual (aturan user): setiap artikel bergaleri banyak gambar; dokumentasi foto ASLI wajib ada & berkredit; ilustrasi AI boleh dengan label "ILUSTRASI AI". Edisi GEM kini 4 gambar: 3 foto asli Wikimedia Commons (Fatima Ayman CC0; Holger Uwe Schmitt CC BY-SA 4.0; Slyronit CC BY-SA 4.0) + 1 ilustrasi AI aksonometrik berlabel.
 - Thumbnail 4 entri arsip lama diekstrak dari data-URI menjadi berkas assets/journal/arsip-1..4.webp (kind "DOKUMENTASI STUDIO"); index.html menyusut ±105KB.
 - tools/add_journal_entry.py: mendukung field images[], pemotong objek tahan kurung bersarang, dan membangun ulang artikel.html setiap entri baru.
+
+## Ronde 4 — Routing bersih + artikel per halaman (2026-11-06, perintah user)
+- vercel.json cleanUrls: semua URL tanpa .html (/artikel.html → /artikel, /index.html → /).
+- Jurnal tidak lagi satu halaman ramai: artikel.html menjadi INDEKS (kartu tautan), setiap artikel berdiri di halaman sendiri artikel/<slug>.html (dibangun tools/build_artikel_page.py dari notesData; bidang slug baru di notesData + entry.json).
+- Baris jurnal di beranda kini tautan langsung ke /artikel/<slug> (modal baca openNote dihapus); tombol "Semua artikel" → /artikel.
+- Halaman artikel: hero + isi + galeri + navigasi artikel lebih baru/lebih lama; canonical bersih yfarchstudio.web.id/artikel/<slug>.
+- Uji: smoke jsdom 11/11; uji ujung-ke-ujung tool di sandbox (entri ke-7: slug wajib, nomor ulang, pemotongan 6 baris, halaman usang terhapus) lulus — termasuk perbaikan validasi bump saat pemotongan.

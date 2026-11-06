@@ -6,6 +6,7 @@ Pemakaian:
 
 entry.json:
 {
+  "slug": "notre-dame-de-paris",    // WAJIB: kebab-case unik -> /artikel/<slug>
   "date": "06 NOV 2026",            // tampil di baris jurnal
   "category": "ARSITEKTUR DUNIA",   // label kategori
   "title": "...",
@@ -27,13 +28,14 @@ WAJIB banyak gambar (>= 4), dokumentasi foto ASLI wajib ada (>= 2, berkredit),
 ilustrasi AI boleh dan WAJIB berlabel kind "ILUSTRASI AI".
 
 Yang dilakukan:
-1. Semua .journal-row lama: data-note +1, href #note-(n+1).
-2. Baris baru disisipkan tepat setelah <div class="journal-list"> (data-note=0).
+1. Semua .journal-row lama: data-note +1 (href baris = /artikel/<slug>, tetap).
+2. Baris baru disisipkan tepat setelah <div class="journal-list"> (data-note=0,
+   href="/artikel/<slug>").
 3. Objek baru di-unshift ke array notesData pada skrip inline.
 4. Maksimal MAX_ROWS baris di beranda; sisanya terpotong dari HTML
    (arsip tetap ada di journal/*.md dan riwayat git).
 5. Validasi: jumlah baris == jumlah notesData, data-note berurutan 0..n-1.
-6. Bangun ulang artikel.html (halaman penuh Artikel/Jurnal) dari notesData.
+6. Bangun ulang artikel.html (indeks /artikel) + artikel/<slug>.html per artikel.
 """
 import json
 import re
@@ -54,23 +56,24 @@ def js_str(s: str) -> str:
 def main() -> None:
     with open(sys.argv[1], encoding="utf-8") as f:
         e = json.load(f)
+    assert re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", e.get("slug", "")), \
+        "entry.json WAJIB punya slug kebab-case unik (untuk /artikel/<slug>)"
 
     with open(INDEX, encoding="utf-8") as f:
         html = f.read()
 
     # --- 1) naikkan nomor baris lama ---
-    # pola asli: baris ke-i punya data-note="i" dan href="#note-(i+1)";
-    # setelah entri baru masuk di index 0, keduanya naik 1.
+    # baris ke-i punya data-note="i"; setelah entri baru masuk di index 0, naik 1.
+    # (href baris kini /artikel/<slug> milik artikelnya sendiri — tidak berubah.)
     def bump(m: re.Match) -> str:
-        return (f'href="#note-{int(m.group(1)) + 1}" class="journal-row" '
-                f'data-note="{int(m.group(2)) + 1}"')
+        return f'class="journal-row" data-note="{int(m.group(1)) + 1}"'
 
     html, n_bumped = re.subn(
-        r'href="#note-(\d+)" class="journal-row" data-note="(\d+)"', bump, html)
+        r'class="journal-row" data-note="(\d+)"', bump, html)
 
     # --- 2) sisipkan baris baru ---
     row = (
-        '        <a href="#note-1" class="journal-row" data-note="0" data-cursor="lens">\n'
+        f'        <a href="/artikel/{e["slug"]}" class="journal-row" data-note="0" data-cursor="lens">\n'
         '          <div class="journal-thumb">\n'
         f'            <img src="{e["thumb"]}" alt="{esc(e["thumb_alt"])}" loading="lazy" />\n'
         '          </div>\n'
@@ -99,6 +102,7 @@ def main() -> None:
     obj = (
         "        {\n"
         f"          date: {js_str(e['date'] + ' / ' + e['category'])},\n"
+        f"          slug: {js_str(e['slug'])},\n"
         f"          title: {js_str(e['title'])},\n"
         f"          body: {js_str(e['body'])}{images_js}\n"
         "        },\n"
@@ -107,9 +111,11 @@ def main() -> None:
     assert anchor2 in html, "jangkar notesData tidak ditemukan"
     html = html.replace(anchor2, anchor2 + obj, 1)
 
+    n_rows_pre = len(re.findall(r'class="journal-row"', html))
+
     # --- 4) potong kelebihan (tertua = terakhir) ---
     rows = list(re.finditer(
-        r'        <a href="#note-\d+" class="journal-row" data-note="\d+"[\s\S]*?        </a>\n', html))
+        r'        <a href="/artikel/[^"]+" class="journal-row" data-note="\d+"[\s\S]*?        </a>\n', html))
     if len(rows) > MAX_ROWS:
         last = rows[-1]
         html = html[:last.start()] + html[last.end():]
@@ -146,7 +152,7 @@ def main() -> None:
     notes_idx = [int(x) for x in re.findall(r'class="journal-row" data-note="(\d+)"', html)]
     assert n_rows == n_notes, f"baris ({n_rows}) != notesData ({n_notes})"
     assert notes_idx == list(range(n_rows)), f"data-note tidak berurutan: {notes_idx}"
-    assert n_bumped == n_rows - 1, f"bump {n_bumped} != baris lama {n_rows - 1}"
+    assert n_bumped == n_rows_pre - 1, f"bump {n_bumped} != baris lama {n_rows_pre - 1}"
 
     with open(INDEX, "w", encoding="utf-8") as f:
         f.write(html)
@@ -163,6 +169,13 @@ def main() -> None:
     page = open("artikel.html", encoding="utf-8").read()
     assert e["title"].replace("&", "&amp;") in page or e["title"] in page, \
         "judul entri baru tidak ada di artikel.html"
+    import os as _os
+    art_path = _os.path.join("artikel", e["slug"] + ".html")
+    assert _os.path.exists(art_path), f"halaman artikel/{e['slug']}.html tidak terbuat"
+    art = open(art_path, encoding="utf-8").read()
+    assert e["title"].replace("&", "&amp;") in art or e["title"] in art, \
+        "judul entri baru tidak ada di halaman artikelnya"
+    print(f"halaman per-artikel OK: /artikel/{e['slug']}")
 
 
 if __name__ == "__main__":
