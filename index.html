@@ -73,7 +73,7 @@
       filter: invert(1) hue-rotate(180deg);
     }
 
-    /* Native OS arrow/pointer cursor stays 100% visible everywhere! */
+    /* Kursor bawaan = cadangan (sentuh / tanpa JS). Pada pointer halus, kursor invert mengambil alih (html.custom-cursor-on). */
     body {
       overflow-x: hidden;
       cursor: default;
@@ -96,55 +96,77 @@
     }
 
     /* ==========================================================================
-       NATIVE ARROW CURSOR + DELAYED TRAILING FOLLOWER DOT
-       ("bukan panah jadi bulet kecil, panah tetep ada tapi ada titik mengikuti ada delay")
+       KURSOR INVERT: titik kecil difference mengikuti pointer; masuk area
+       gambar (data-cursor="lens") kursor berubah jadi bulatan besar invert.
        ========================================================================== */
+    @media (pointer: fine) and (min-width: 769px) {
+      html.custom-cursor-on,
+      html.custom-cursor-on *:not(input):not(textarea):not(select) {
+        cursor: none !important;
+      }
+    }
+
     #custom-cursor {
       position: fixed;
       top: 0;
       left: 0;
-      width: 9px;
-      height: 9px;
-      background: #C2FF0A;
-      border: 1.5px solid #111111;
+      width: 10px;
+      height: 10px;
+      background: #FFFFFF;
+      border: none;
       border-radius: 50%;
       pointer-events: none;
       z-index: 99999;
+      mix-blend-mode: difference;
       transform: translate3d(-50%, -50%, 0);
-      box-shadow: 0 0 10px rgba(194, 255, 10, 0.7);
-      transition: width 0.22s ease, height 0.22s ease, background-color 0.22s ease;
+      transition: width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
       will-change: transform;
     }
 
     #custom-cursor.is-active {
-      width: 13px;
-      height: 13px;
-      background: #551AE6;
-      border-color: #FFFFFF;
-      box-shadow: 0 0 14px rgba(85, 26, 230, 0.75);
+      width: 18px;
+      height: 18px;
+    }
+
+    #custom-cursor.is-lens,
+    #custom-cursor.is-hidden {
+      opacity: 0;
     }
 
     #cursor-trail-ring {
       position: fixed;
       top: 0;
       left: 0;
-      width: 28px;
-      height: 28px;
-      border: 1px dashed rgba(17, 17, 17, 0.38);
+      width: 34px;
+      height: 34px;
+      border: 1.5px solid #FFFFFF;
+      background: transparent;
       border-radius: 50%;
       pointer-events: none;
       z-index: 99998;
       mix-blend-mode: difference;
-      border-color: rgba(255, 255, 255, 0.55);
+      opacity: 0.55;
       transform: translate3d(-50%, -50%, 0);
-      transition: width 0.28s ease, height 0.28s ease, border-color 0.25s ease;
+      transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, opacity 0.25s ease;
       will-change: transform;
     }
 
     #cursor-trail-ring.is-active {
-      width: 40px;
-      height: 40px;
-      border-color: #C2FF0A;
+      width: 48px;
+      height: 48px;
+      opacity: 0.9;
+    }
+
+    #cursor-trail-ring.is-lens {
+      width: 88px;
+      height: 88px;
+      background: #FFFFFF;
+      border-color: transparent;
+      opacity: 1;
+    }
+
+    #cursor-trail-ring.is-hidden {
+      opacity: 0;
     }
 
     /* ==========================================================================
@@ -3357,11 +3379,17 @@
       });
 
       /* ======================================================================
-         2. NATIVE ARROW CURSOR + DELAYED TRAILING DOT & RING
-         ("bukan panah jadi bulet kecil, panah tetep ada tapi ada titik mengikuti ada delay")
+         2. KURSOR INVERT — titik kecil difference mengikuti pointer (panah
+         bawaan disembunyikan pada pointer halus); masuk area gambar
+         (data-cursor="lens") berubah jadi bulatan besar invert; di atas
+         tautan/tombol membesar sedang; di kolom isian kursor teks bawaan
+         yang bekerja.
          ====================================================================== */
       const cursorDot = document.getElementById('custom-cursor');
       const cursorRing = document.getElementById('cursor-trail-ring');
+      if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+        document.documentElement.classList.add('custom-cursor-on');
+      }
       let mouseX = window.innerWidth / 2;
       let mouseY = window.innerHeight / 2;
       let dotX = mouseX;
@@ -3375,13 +3403,13 @@
       }, { passive: true });
 
       function animateCursorTrail() {
-        // The native arrow pointer is at (mouseX, mouseY).
-        // The small dot trails behind with a smooth delay (lerp = 0.09),
-        // and the subtle outer CAD ring trails with an even softer delay (lerp = 0.05)!
-        dotX += (mouseX - dotX) * 0.09;
-        dotY += (mouseY - dotY) * 0.09;
-        ringX += (mouseX - ringX) * 0.05;
-        ringY += (mouseY - ringY) * 0.05;
+        // Titik menempel rapat ke pointer (lerp 0.4 — terasa sebagai kursor
+        // itu sendiri); cakram membuntuti lebih lembut (lerp 0.16) supaya
+        // perubahan ukurannya terasa cair.
+        dotX += (mouseX - dotX) * 0.4;
+        dotY += (mouseY - dotY) * 0.4;
+        ringX += (mouseX - ringX) * 0.16;
+        ringY += (mouseY - ringY) * 0.16;
 
         cursorDot.style.transform = 'translate3d(' + dotX.toFixed(1) + 'px, ' + dotY.toFixed(1) + 'px, 0) translate(-50%, -50%)';
         cursorRing.style.transform = 'translate3d(' + ringX.toFixed(1) + 'px, ' + ringY.toFixed(1) + 'px, 0) translate(-50%, -50%)';
@@ -3389,20 +3417,30 @@
       }
       requestAnimationFrame(animateCursorTrail);
 
-      function bindCursorTargets() {
-        const targets = document.querySelectorAll('a, button, [data-cursor]');
-        targets.forEach(function (el) {
-          el.addEventListener('mouseenter', function () {
-            cursorDot.classList.add('is-active');
-            cursorRing.classList.add('is-active');
-          });
-          el.addEventListener('mouseleave', function () {
-            cursorDot.classList.remove('is-active');
-            cursorRing.classList.remove('is-active');
-          });
-        });
-      }
-      bindCursorTargets();
+      document.addEventListener('mouseover', function (e) {
+        const t = e.target;
+        const near = function (sel) { return !!(t && t.closest && t.closest(sel)); };
+        const lens = near('[data-cursor="lens"]');
+        const field = near('input, textarea, select');
+        const inter = near('a, button, [data-cursor], [role="button"]');
+        cursorDot.classList.toggle('is-lens', lens);
+        cursorRing.classList.toggle('is-lens', lens);
+        cursorDot.classList.toggle('is-active', !lens && inter);
+        cursorRing.classList.toggle('is-active', !lens && inter);
+        cursorDot.classList.toggle('is-hidden', field);
+        cursorRing.classList.toggle('is-hidden', field);
+      }, { passive: true });
+
+      document.documentElement.addEventListener('mouseleave', function () {
+        cursorDot.classList.add('is-hidden');
+        cursorRing.classList.add('is-hidden');
+      });
+      document.documentElement.addEventListener('mouseenter', function () {
+        if (!document.querySelector('input:hover, textarea:hover, select:hover')) {
+          cursorDot.classList.remove('is-hidden');
+          cursorRing.classList.remove('is-hidden');
+        }
+      });
 
       /* ======================================================================
          3. FULL-PAGE INVERT MODE TOGGLE (BUTTON + KEY 'I')

@@ -41,3 +41,8 @@ Catatan sisa (jujur): berkas tetap 1,65 MB (16 gambar data-URI bawaan desain awa
 - Baris jurnal di beranda kini tautan langsung ke /artikel/<slug> (modal baca openNote dihapus); tombol "Semua artikel" → /artikel.
 - Halaman artikel: hero + isi + galeri + navigasi artikel lebih baru/lebih lama; canonical bersih yfarchstudio.web.id/artikel/<slug>.
 - Uji: smoke jsdom 11/11; uji ujung-ke-ujung tool di sandbox (entri ke-7: slug wajib, nomor ulang, pemotongan 6 baris, halaman usang terhapus) lulus — termasuk perbaikan validasi bump saat pemotongan.
+
+## Ronde 5 — Kursor invert landing (2026-11-06, perintah user)
+- Kursor lama (panah bawaan + titik lime membuntuti + ring putus-putus) diganti kursor invert ala galeri: titik kecil putih mix-blend-mode:difference mengikuti pointer rapat (lerp 0.4); panah bawaan disembunyikan hanya pada pointer halus (html.custom-cursor-on dari JS + media pointer:fine ≥769px; sentuh/HP tetap bawaan).
+- Masuk area gambar (data-cursor="lens": showreel, 6 kartu karya, 6 baris artikel): titik memudar dan ring berubah jadi bulatan besar 88px putih difference (invert penuh). Di tautan/tombol: membesar sedang (18px/48px). Di kolom isian: kursor kustom sembunyi, kursor teks bawaan bekerja.
+- State kini via delegasi mouseover (tahan konten dinamis/modal/chat). Smoke jsdom 8/8.
