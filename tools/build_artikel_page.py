@@ -5,9 +5,11 @@ Menghasilkan (routing bersih tanpa .html, via vercel.json cleanUrls):
 - artikel.html          -> indeks /artikel (daftar semua artikel, kartu tautan)
 - artikel/<slug>.html   -> satu halaman penuh per artikel (isi + galeri)
 
-Sumber data satu-satunya = array notesData pada index.html (diekstrak via node).
+Sumber data = array notesData pada index.html (diekstrak via node) DIGABUNG
+arsip journal/*.json: entri lama yang terpotong dari beranda (batas 6 baris)
+tetap dapat halaman sendiri — routing per halaman tidak boleh putus.
 Setiap entri WAJIB punya bidang slug. Halaman artikel/<slug>.html yang slug-nya
-sudah tidak ada di notesData akan dihapus.
+tidak ada di gabungan data akan dihapus. Ikut dibangun: sitemap.xml.
 
 Pemakaian:  python3 tools/build_artikel_page.py
 """
@@ -99,7 +101,51 @@ def fig(img, cls=""):
             f'<figcaption><span class="img-badge">{img["kind"]}</span>{img["caption"]}</figcaption></figure>')
 
 
-def head(title, desc, canonical):
+MONTHS = {"JAN": 1, "FEB": 2, "MAR": 3, "APR": 4, "MAY": 5, "JUN": 6,
+          "JUL": 7, "AUG": 8, "SEP": 9, "OCT": 10, "NOV": 11, "DEC": 12}
+
+
+def iso_date(display_date: str) -> str:
+    """'10 NOV 2026 / ARSITEKTUR DUNIA' -> '2026-11-10' ('' bila tak terparse)."""
+    m = re.match(r"(\d{1,2})\s+([A-Z]{3})\s+(\d{4})", (display_date or "").strip())
+    if not m or m.group(2) not in MONTHS:
+        return ""
+    return f"{m.group(3)}-{MONTHS[m.group(2)]:02d}-{int(m.group(1)):02d}"
+
+
+def load_archives(seen_slugs):
+    """Entri lama dari journal/*.json yang sudah tidak ada di notesData beranda
+    (terpotong batas 6 baris) TETAP harus punya halaman /artikel/<slug> —
+    routing per halaman tidak boleh putus. notesData selalu menang."""
+    import glob
+    extra = []
+    for path in sorted(glob.glob("journal/*.json")):
+        try:
+            with open(path, encoding="utf-8") as f:
+                e = json.load(f)
+        except Exception:
+            continue
+        slug = e.get("slug")
+        if not slug or slug in seen_slugs or not e.get("title") or not e.get("body"):
+            continue
+        seen_slugs.add(slug)
+        date = e.get("date", "")
+        if " / " not in date and e.get("category"):
+            date = date + " / " + e["category"]
+        extra.append({"date": date, "slug": slug, "title": e["title"],
+                      "body": e["body"], "images": e.get("images") or []})
+    return extra
+
+
+def head(title, desc, canonical, og_image="", jsonld=""):
+    og_img = ""
+    if og_image:
+        og_img = (f'\n  <meta property="og:image" content="{og_image}" />'
+                  f'\n  <meta name="twitter:card" content="summary_large_image" />'
+                  f'\n  <meta name="twitter:title" content="{title}" />'
+                  f'\n  <meta name="twitter:description" content="{desc}" />'
+                  f'\n  <meta name="twitter:image" content="{og_image}" />')
+    ld = f'\n  <script type="application/ld+json">{jsonld}</script>' if jsonld else ""
     return f"""<!DOCTYPE html>
 <html lang="id">
 <head>
@@ -111,9 +157,9 @@ def head(title, desc, canonical):
   <meta property="og:type" content="article" />
   <meta property="og:title" content="{title}" />
   <meta property="og:description" content="{desc}" />
-  <meta property="og:url" content="{canonical}" />
+  <meta property="og:url" content="{canonical}" />{og_img}
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-  <meta name="theme-color" content="#F6F5F0" />
+  <meta name="theme-color" content="#F6F5F0" />{ld}
   {FONTS}
   <style>{CSS}  </style>
 </head>"""
@@ -162,9 +208,11 @@ def build_index(notes):
             f'<span class="card-title">{esc_text(n["title"])}</span>'
             f'<span class="card-go">Baca artikel →</span></span></a>')
     newest = esc_text(notes[0]["date"].split(" / ")[0])
+    first_imgs = notes[0].get("images") or []
+    og0 = BASE + abs_src(first_imgs[0]["src"]) if first_imgs else ""
     page = head("Artikel/Jurnal Arsitektur Dunia — YFArchitect Studio",
                 "Indeks Artikel/Jurnal Arsitektur Dunia YFArchitect Studio: telaah pakar karya & metode arsitektur dunia dari sumber terverifikasi, dengan dokumentasi foto asli berkredit dan ilustrasi berlabel jujur. Setiap artikel berdiri di halaman sendiri. Terbit harian dari Probolinggo.",
-                BASE + "/artikel") + f"""
+                BASE + "/artikel", og0) + f"""
 <body id="atas">
   <div class="topbar"><div class="topbar-in">
     <a class="backlink" href="/">← Beranda Studio</a>
@@ -188,9 +236,24 @@ def build_index(notes):
 def build_article(notes, idx):
     n = notes[idx]
     imgs = n.get("images") or []
+    og_img = BASE + abs_src(imgs[0]["src"]) if imgs else ""
+    iso = iso_date(n["date"])
+    jsonld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": n["title"].replace("&amp;", "&"),
+        "datePublished": iso,
+        "image": [og_img] if og_img else [],
+        "author": {"@type": "Organization", "name": "YFArchitect Studio",
+                   "url": BASE + "/"},
+        "publisher": {"@type": "Organization", "name": "YFArchitect Studio",
+                      "url": BASE + "/"},
+        "mainEntityOfPage": f'{BASE}/artikel/{n["slug"]}',
+        "inLanguage": "id",
+    }, ensure_ascii=False)
     parts = [head(f'{esc_text(n["title"])} — Artikel/Jurnal YFArchitect Studio',
                   "Telaah pakar Artikel/Jurnal Arsitektur Dunia YFArchitect Studio: " + esc_text(n["title"]),
-                  f'{BASE}/artikel/{n["slug"]}'),
+                  f'{BASE}/artikel/{n["slug"]}', og_img, jsonld),
              """
 <body id="atas">
   <div class="topbar"><div class="topbar-in">
@@ -236,6 +299,11 @@ def main() -> None:
     for n in notes:
         n["slug"] = n.get("slug") or slugify(n["title"])
         assert re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", n["slug"]), f"slug tidak valid: {n['slug']}"
+    # Gabung arsip lama (routing per halaman tidak boleh putus walau baris
+    # beranda dibatasi 6), lalu urutkan semua dari terbaru ke terlama.
+    seen = {n["slug"] for n in notes}
+    notes = notes + load_archives(seen)
+    notes.sort(key=lambda n: iso_date(n["date"]) or "0000-00-00", reverse=True)
     size = build_index(notes)
     os.makedirs("artikel", exist_ok=True)
     made = set()
@@ -246,6 +314,22 @@ def main() -> None:
         if old.endswith(".html") and old not in made:
             os.remove(os.path.join("artikel", old))
             print("halaman usang dihapus:", old)
+    # sitemap.xml: beranda + indeks + satu URL per artikel (routing per halaman)
+    urls = [(BASE + "/", iso_date(notes[0]["date"])),
+            (BASE + "/artikel", iso_date(notes[0]["date"]))]
+    urls += [(f'{BASE}/artikel/{n["slug"]}', iso_date(n["date"])) for n in notes]
+    sm = ['<?xml version="1.0" encoding="UTF-8"?>',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for loc, lastmod in urls:
+        sm.append("  <url>")
+        sm.append(f"    <loc>{loc}</loc>")
+        if lastmod:
+            sm.append(f"    <lastmod>{lastmod}</lastmod>")
+        sm.append("  </url>")
+    sm.append("</urlset>")
+    with open("sitemap.xml", "w", encoding="utf-8") as f:
+        f.write("\n".join(sm) + "\n")
+    print(f"sitemap.xml: {len(urls)} URL")
     print(f"artikel.html (indeks) {size} byte + {len(made)} halaman artikel: "
           + ", ".join(sorted(made)))
 

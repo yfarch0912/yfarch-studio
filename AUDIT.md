@@ -50,3 +50,18 @@ Catatan sisa (jujur): berkas tetap 1,65 MB (16 gambar data-URI bawaan desain awa
 ## Ronde 6 — Smooth scrolling Lenis + perbaikan modal (2026-11-06, perintah user)
 - Mesin gulir lama (hijack roda buatan sendiri) diganti Lenis 1.1.18 (CDN jsdelivr): fisika durasi 1,25 dtk, gulir tetap natif (sticky/parallax/reveal utuh), stop saat modal terbuka, data-lenis-prevent pada kartu modal & panel chat. Cadangan: tanpa CDN / prefers-reduced-motion → gulir bawaan + behavior smooth. Halaman artikel ikut memakai Lenis (snippet di builder).
 - PERBAIKAN REGRESI ronde 5: openModal masih memanggil bindCursorTargets() yang sudah dihapus saat kursor diganti delegasi → berpotensi ReferenceError saat modal dibuka. Panggilan basi dibuang; teruji modal karya buka/tutup bersih (smoke 6/6).
+
+## Ronde 7 — Audit menyeluruh + pemulihan routing per halaman (2026-11-10, perintah user)
+Temuan audit (live + lokal):
+- **KRITIS — routing per halaman putus:** batas 6 baris beranda memotong notesData dan builder MENGHAPUS artikel/<slug>.html milik entri terpotong. 4 artikel arsip studio (mono-pitch, kanopi carport, bata ekspos, denah 4 kamar) live **404**; GEM akan menyusul terhapus pada edisi berikutnya.
+- robots.txt & sitemap.xml tidak ada (404); halaman 404 = bawaan Vercel 79 byte polos.
+- Halaman artikel tanpa og:image/Twitter Card/JSON-LD; og:image beranda menunjuk domain vercel.app, bukan domain utama.
+- Header keamanan minim (hanya HSTS dari Vercel); aset /assets tanpa cache panjang.
+- Sehat: semua tautan internal bersih tanpa .html; canonical benar; semua <img> ber-alt; node --check lulus; Lenis & kursor invert utuh. Bobot beranda 1,57 MB (12 gambar data-URI portofolio, karakter berkas tunggal kiriman user — diterima sadar, tidak diubah).
+
+Perbaikan:
+- **Routing per halaman dipulihkan permanen:** builder kini menggabungkan notesData + arsip journal/*.json (notesData menang; terurut tanggal desc) → 10 halaman artikel, indeks /artikel memuat semua 10, rantai prev/next melintasi arsip. 4 entri arsip dipulihkan dari riwayat git (commit f580758) ke journal/arsip-<slug>.json; gambar arsip-1..4.webp masih ada. Halaman hanya dihapus bila slug hilang dari gabungan data — edisi harian berikutnya tidak akan memutus URL lama.
+- **SEO:** sitemap.xml (12 URL + lastmod) dibangun otomatis oleh builder tiap edisi; robots.txt menunjuk sitemap; og:image + Twitter Card di indeks & semua halaman artikel; JSON-LD schema Article (headline, datePublished, author/publisher) per artikel; og:image beranda → domain yfarchstudio.web.id.
+- **404 bermerek:** 404.html seirama halaman artikel (tautan Beranda / Semua artikel / WhatsApp).
+- **Header:** vercel.json + X-Content-Type-Options, Referrer-Policy, X-Frame-Options SAMEORIGIN, Permissions-Policy; Cache-Control immutable 1 tahun untuk /assets/* (nama berkas unik bertanggal).
+- Uji: builder bersih; node --check lulus; smoke jsdom 10/10 (6 baris beranda, 10 kartu indeks, arsip pulih + canonical + JSON-LD valid + og:image, rantai GEM→arsip, galeri Bosco utuh).
