@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yfarchstudio.web.id/</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-11</lastmod>
   </url>
   <url>
     <loc>https://yfarchstudio.web.id/artikel</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://yfarchstudio.web.id/artikel/louvre-abu-dhabi</loc>
+    <lastmod>2026-11-11</lastmod>
   </url>
   <url>
     <loc>https://yfarchstudio.web.id/artikel/bosco-verticale-milan</loc>
@@ -26,10 +30,6 @@
   </url>
   <url>
     <loc>https://yfarchstudio.web.id/artikel/notre-dame-de-paris</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://yfarchstudio.web.id/artikel/grand-egyptian-museum</loc>
     <lastmod>2026-11-06</lastmod>
   </url>
   <url>
