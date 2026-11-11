@@ -65,3 +65,12 @@ Perbaikan:
 - **404 bermerek:** 404.html seirama halaman artikel (tautan Beranda / Semua artikel / WhatsApp).
 - **Header:** vercel.json + X-Content-Type-Options, Referrer-Policy, X-Frame-Options SAMEORIGIN, Permissions-Policy; Cache-Control immutable 1 tahun untuk /assets/* (nama berkas unik bertanggal).
 - Uji: builder bersih; node --check lulus; smoke jsdom 10/10 (6 baris beranda, 10 kartu indeks, arsip pulih + canonical + JSON-LD valid + og:image, rantai GEM→arsip, galeri Bosco utuh).
+
+## Ronde 8 — Semua animasi 3D disederhanakan menjadi statis (2026-11-11, perintah user)
+Latar: user menilai animasi 3D membuat landing "kurang simple" dan memilih opsi "sederhanakan semua animasi 3D" (bukan hero saja).
+- **Hero:** showreel 22 detik (4 mode berganti otomatis, rotasi mengikuti kursor + putaran otomatis, telemetri sudut berubah-ubah) DIHAPUS. Canvas kini satu gambar isometric statis (sudut tetap 0.62/0.36, build 100%, mode Full Isometric + panah struktur). Tab mode (4 tombol), progress bar, tombol "Play with sound" + synth WebAudio, dan baris petunjuk kursor dihapus dari HTML & JS. Canvas digambar ulang hanya saat resize/load/scroll (kotak hero memang melebar saat scroll) agar tetap tajam — gambarnya sendiri tidak bergerak.
+- **About dissector:** putaran otomatis + yaw mengikuti kursor dihapus; gambar statis pada explode saat ini. Slider explode & tombol 4 lapis TETAP berfungsi (interaksi sengaja oleh pengunjung, menggambar ulang satu frame per perubahan) — bukan animasi ambient.
+- **Services:** Arch statis (sudut tetap); Interior statis (furnitur terakit, explode 0, tanpa hover); Masterplan statis (garis bidik crosshair kursor dihapus); Build statis di tahap akhir 100% (time-lapse otomatis + scrub kursor dihapus; progress bar penuh; readout tahap 5/5).
+- **Methodology (hww):** ayunan yaw sinusoidal dihapus; sudut tetap 0.56; tombol 6 fase tetap mengganti tahap gambar secara statis.
+- Semua teks "GERAKKAN KURSOR…" diganti keterangan statis yang jujur. Yang TIDAK diubah: kursor invert (ronde 5), Lenis (ronde 6), pelebaran kotak hero saat scroll, reveal scroll & counter statistik — bukan animasi 3D.
+- Uji: node --check lulus; smoke jsdom eksekusi penuh (canvas di-stub): 0 error, 7 canvas utuh, 0 tombol mode/sound/progress, 0 teks petunjuk kursor. Berkas menyusut ±7,3 KB.

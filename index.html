@@ -2312,25 +2312,12 @@
               <div style="color:#38BDF8">PROBOLINGGO, JAWA TIMUR · YFARCHITECT STUDIO</div>
             </div>
 
-            <div class="bim-mode-switcher" role="tablist" aria-label="Isometric 3D BIM Modes">
-              <button type="button" class="bim-mode-btn active" data-bim-scene="0" data-cursor="button">01 Full Isometric + Panah Struktur</button>
-              <button type="button" class="bim-mode-btn" data-bim-scene="1" data-cursor="button">02 Fokus Kolom Menerus &amp; Pondasi</button>
-              <button type="button" class="bim-mode-btn" data-bim-scene="2" data-cursor="button">03 Rangka Atap Miring 1 Sisi</button>
-              <button type="button" class="bim-mode-btn" data-bim-scene="3" data-cursor="button">04 Time-Lapse Build 0–100%</button>
-            </div>
-          </div>
+                      </div>
 
           <div class="showreel-controls">
-            <span class="showreel-pill" id="showreel-scene-label">● 3D Isometric Rumah Tropis Atap Miring 1 Sisi · Gerakkan Kursor untuk Putar Sudut Isometric</span>
-            <button type="button" class="showreel-pill" id="showreel-sound-btn" data-cursor="button">
-              <span id="sound-icon">▶</span>
-              <span id="sound-text">Play with sound</span>
-            </button>
+            <span class="showreel-pill" id="showreel-scene-label">● 3D Isometric Rumah Tropis Atap Miring 1 Sisi (Mono-Pitch)</span>
           </div>
 
-          <div class="showreel-progress-wrap" id="showreel-progress-wrap">
-            <div class="showreel-progress-bar" id="showreel-progress-bar"></div>
-          </div>
         </div>
       </div>
     </div>
@@ -2371,7 +2358,7 @@
 
         <div class="about-controls-col">
           <div>
-            <span class="meta-label" style="color:var(--accent-lime)">KLIK KOMPONEN STRUKTUR UNTUK INSPEKSI 3D &amp; PANAH PENJELASAN</span>
+            <span class="meta-label" style="color:var(--accent-lime)">PILIH LAPIS STRUKTUR UNTUK INSPEKSI &amp; PANAH PENJELASAN</span>
             <div class="layer-Cards-grid">
               <button type="button" class="layer-inspect-btn active" data-inspect-layer="all">
                 <div>
@@ -2632,7 +2619,7 @@
             <span>(01)</span>
           </div>
           <div class="srv-drawing-foot">
-            <span class="srv-drawing-foot-left">GERAKKAN KURSOR UNTUK PUTAR ISOMETRIC &amp; INSPEKSI PANAH STRUKTUR</span>
+            <span class="srv-drawing-foot-left">ISOMETRIC STATIS · STRUKTUR ATAP MIRING 1 SISI &amp; KOLOM MENERUS</span>
             <span id="readout-srv-arch" style="color:var(--accent-lime)">MONO-PITCH ROOF · KOLOM MENERUS</span>
           </div>
         </div>
@@ -2675,7 +2662,7 @@
             <span>(02)</span>
           </div>
           <div class="srv-drawing-foot">
-            <span class="srv-drawing-foot-left">GERAKKAN KURSOR UNTUK EXPLODE SAMBUNGAN FURNITUR 3D</span>
+            <span class="srv-drawing-foot-left">JOINERY FURNITUR ISOMETRIC · SOFA, ISLAND &amp; CREDENZA</span>
             <span id="readout-srv-int" style="color:#38BDF8">SOFA + ISLAND + CREDENZA</span>
           </div>
         </div>
@@ -2718,7 +2705,7 @@
             <span>(03)</span>
           </div>
           <div class="srv-drawing-foot">
-            <span class="srv-drawing-foot-left">GERAKKAN KURSOR UNTUK INSPEKSI RUANG &amp; UKURAN MILIMETER</span>
+            <span class="srv-drawing-foot-left">DENAH LANTAI 1 &amp; LANTAI 2 · KAVLING 7000 × 15000 MM</span>
             <span id="readout-srv-mp" style="color:var(--accent-lime)">LEBAR 7000MM (1975 + 5025)</span>
           </div>
         </div>
@@ -2761,8 +2748,8 @@
             <span>(04)</span>
           </div>
           <div class="srv-drawing-foot">
-            <span class="srv-drawing-foot-left">GERAKKAN KURSOR KE KIRI/KANAN UNTUK SCRUB PROGRES KONSTRUKSI</span>
-            <span id="readout-srv-build" style="color:var(--accent-lime)">STAGE 3/5 · 60% BUILT</span>
+            <span class="srv-drawing-foot-left">TAHAPAN KONSTRUKSI · DARI PONDASI HINGGA FINISHING</span>
+            <span id="readout-srv-build" style="color:var(--accent-lime)">TAHAP 5/5 · FINISHING · 100%</span>
           </div>
         </div>
       </article>
@@ -3875,6 +3862,7 @@
         aboutExplode = v / 100;
         aboutExplodeVal.textContent = v + '%';
         aboutIsoReadout.textContent = 'EXPLODE: ' + v + '% · LAYER: ' + aboutHighlight.toUpperCase();
+        drawAboutStatic();
       });
 
       layerBtns.forEach(function (btn) {
@@ -3887,18 +3875,13 @@
             aboutSpecBody.textContent = sp.body;
           }
           aboutIsoReadout.textContent = 'EXPLODE: ' + Math.round(aboutExplode * 100) + '% · LAYER: ' + aboutHighlight.toUpperCase();
+          drawAboutStatic();
         });
       });
 
-      aboutIsoStage.addEventListener('mousemove', function (e) {
+      function drawAboutStatic() {
         const r = aboutIsoStage.getBoundingClientRect();
-        const nx = ((e.clientX - r.left) / r.width) - 0.5;
-        aboutTargetYaw = 0.62 + nx * 1.8;
-      });
-
-      function renderAboutDissector() {
-        const r = aboutIsoStage.getBoundingClientRect();
-        if (r.bottom > 0 && r.top < window.innerHeight) {
+        if (r.width > 0) {
           if (aboutIsoCanvas.width !== Math.floor(r.width) || aboutIsoCanvas.height !== Math.floor(r.height)) {
             aboutIsoCanvas.width = Math.floor(r.width);
             aboutIsoCanvas.height = Math.floor(r.height);
@@ -3907,9 +3890,6 @@
           const w = aboutIsoCanvas.width;
           const h = aboutIsoCanvas.height;
           ctx.clearRect(0, 0, w, h);
-
-          aboutTargetYaw += 0.0015;
-          aboutYaw += (aboutTargetYaw - aboutYaw) * 0.09;
 
           drawMonoPitchTropicalHouseIsometric(
             ctx, w, h,
@@ -3920,9 +3900,10 @@
             aboutExplode, aboutHighlight
           );
         }
-        requestAnimationFrame(renderAboutDissector);
       }
-      requestAnimationFrame(renderAboutDissector);
+      drawAboutStatic();
+      window.addEventListener('resize', drawAboutStatic);
+      window.addEventListener('load', drawAboutStatic);
 
       // Interactive Parametric Space Simulator in #about
       const simAreaSlider = document.getElementById('sim-area-slider');
@@ -3978,48 +3959,10 @@
         '4D TIME-LAPSE BUILD // PROSES KONSTRUKSI 0% HINGGA 100%'
       ];
 
-      function setHeroBimMode(m) {
-        heroBimMode = m;
-        bimModeBtns.forEach(function (b, i) {
-          b.classList.toggle('active', i === m);
-        });
-        bimSceneTitle.textContent = bimTitles[m];
-      }
-
-      bimModeBtns.forEach(function (btn) {
-        btn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          const m = parseInt(btn.getAttribute('data-bim-scene'), 10);
-          setHeroBimMode(m);
-          reelElapsed = (m / 4) * reelDuration;
-        });
-      });
-
-      showreelBox.addEventListener('mousemove', function (e) {
+      // RONDE 8: hero statis — satu sudut isometric tetap, tanpa showreel berputar.
+      function drawHeroStatic() {
         const r = showreelBox.getBoundingClientRect();
-        const nx = ((e.clientX - r.left) / r.width) - 0.5;
-        const ny = ((e.clientY - r.top) / r.height) - 0.5;
-        heroTargetYaw = 0.58 + nx * 1.65;
-        heroTargetPitch = Math.max(0.18, Math.min(0.72, 0.36 + ny * 0.65));
-      });
-
-      progressWrap.addEventListener('click', function (e) {
-        e.stopPropagation();
-        const rect = progressWrap.getBoundingClientRect();
-        const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        reelElapsed = ratio * reelDuration;
-        setHeroBimMode(Math.min(3, Math.floor(ratio * 4)));
-      });
-
-      function tickHeroShowreel(now) {
-        const dt = now - lastTick;
-        lastTick = now;
-        reelElapsed = (reelElapsed + dt) % reelDuration;
-        const pct = (reelElapsed / reelDuration) * 100;
-        progressBar.style.width = pct.toFixed(2) + '%';
-
-        const r = showreelBox.getBoundingClientRect();
-        if (r.bottom > 0 && r.top < window.innerHeight) {
+        if (r.width > 0) {
           if (heroBimCanvas.width !== Math.floor(r.width) || heroBimCanvas.height !== Math.floor(r.height)) {
             heroBimCanvas.width = Math.floor(r.width);
             heroBimCanvas.height = Math.floor(r.height);
@@ -4028,69 +3971,20 @@
           const w = heroBimCanvas.width;
           const h = heroBimCanvas.height;
           ctx.clearRect(0, 0, w, h);
-
-          heroTargetYaw += 0.0012;
-          heroYaw += (heroTargetYaw - heroYaw) * 0.08;
-          heroPitch += (heroTargetPitch - heroPitch) * 0.08;
-
-          const cx = w * 0.48;
-          const cy = h * 0.68;
-          const sc = Math.min(w, h) * 0.043;
-          const buildP = heroBimMode === 3 ? ((reelElapsed % 5500) / 5500) : 1.0;
-
-          drawMonoPitchTropicalHouseIsometric(ctx, w, h, heroYaw, heroPitch, cx, cy, sc, buildP, heroBimMode, true, 0, 'all');
-
-          const deg = Math.round(((heroYaw * 57.3) % 360 + 360) % 360);
-          bimTelemetryReadout.textContent = 'ISOMETRIC ANGLE: ' + deg + '° · ATAP MIRING 1 SISI · BUILD: ' + Math.round(buildP * 100) + '%';
-        }
-
-        requestAnimationFrame(tickHeroShowreel);
-      }
-      requestAnimationFrame(tickHeroShowreel);
-
-      // Web Audio API Synth for "Play with sound"
-      let audioCtx = null;
-      let soundPlaying = false;
-      let soundInterval = null;
-
-      function toggleShowreelSound(e) {
-        e.stopPropagation();
-        if (!audioCtx) {
-          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-          if (AudioContextClass) audioCtx = new AudioContextClass();
-        }
-        soundPlaying = !soundPlaying;
-        if (soundPlaying && audioCtx) {
-          if (audioCtx.state === 'suspended') audioCtx.resume();
-          soundIcon.textContent = '❚❚';
-          soundText.textContent = 'Sound on';
-          playAmbientChord();
-          soundInterval = setInterval(playAmbientChord, 2400);
-        } else {
-          soundIcon.textContent = '▶';
-          soundText.textContent = 'Play with sound';
-          if (soundInterval) clearInterval(soundInterval);
+          drawMonoPitchTropicalHouseIsometric(ctx, w, h, 0.62, 0.36, w * 0.48, h * 0.68, Math.min(w, h) * 0.043, 1.0, 0, true, 0, 'all');
         }
       }
+      drawHeroStatic();
+      window.addEventListener('resize', drawHeroStatic);
+      window.addEventListener('load', drawHeroStatic);
+      let heroRedrawQueued = false;
+      window.addEventListener('scroll', function () {
+        if (!heroRedrawQueued) {
+          heroRedrawQueued = true;
+          requestAnimationFrame(function () { heroRedrawQueued = false; drawHeroStatic(); });
+        }
+      }, { passive: true });
 
-      function playAmbientChord() {
-        if (!audioCtx || !soundPlaying) return;
-        const now = audioCtx.currentTime;
-        [220, 277.18, 329.63, 440].forEach(function (f, i) {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = i % 2 === 0 ? 'sine' : 'triangle';
-          osc.frequency.setValueAtTime(f, now);
-          gain.gain.setValueAtTime(0.001, now);
-          gain.gain.exponentialRampToValueAtTime(0.025, now + 0.4);
-          gain.gain.exponentialRampToValueAtTime(0.0008, now + 2.2);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start(now);
-          osc.stop(now + 2.3);
-        });
-      }
-      soundBtn.addEventListener('click', toggleShowreelSound);
 
       /* ======================================================================
          7. SERVICE CARD 01: ISOMETRIC 3D RUMAH TROPIS ATAP MIRING 1 SISI (#canvas-srv-arch)
@@ -4103,18 +3997,9 @@
       let srvArchTargetYaw = 0.58;
       let srvArchTargetPitch = 0.36;
 
-      srvArchBox.addEventListener('mousemove', function (e) {
+      function drawSrvArchStatic() {
         const r = srvArchBox.getBoundingClientRect();
-        const nx = ((e.clientX - r.left) / r.width) - 0.5;
-        const ny = ((e.clientY - r.top) / r.height) - 0.5;
-        srvArchTargetYaw = 0.58 + nx * 1.8;
-        srvArchTargetPitch = Math.max(0.18, Math.min(0.75, 0.36 + ny * 0.65));
-        readoutSrvArch.textContent = 'ISOMETRIC ' + Math.round(((srvArchTargetYaw * 57.3) % 360 + 360) % 360) + '° · ATAP MIRING 1 SISI';
-      });
-
-      function renderSrvArch() {
-        const r = srvArchBox.getBoundingClientRect();
-        if (r.bottom > 0 && r.top < window.innerHeight) {
+        if (r.width > 0) {
           if (srvArchCanvas.width !== Math.floor(r.width) || srvArchCanvas.height !== Math.floor(r.height)) {
             srvArchCanvas.width = Math.floor(r.width);
             srvArchCanvas.height = Math.floor(r.height);
@@ -4124,15 +4009,12 @@
           const h = srvArchCanvas.height;
           ctx.clearRect(0, 0, w, h);
 
-          srvArchTargetYaw += 0.0014;
-          srvArchYaw += (srvArchTargetYaw - srvArchYaw) * 0.1;
-          srvArchPitch += (srvArchTargetPitch - srvArchPitch) * 0.1;
-
           drawMonoPitchTropicalHouseIsometric(ctx, w, h, srvArchYaw, srvArchPitch, w * 0.48, h * 0.68, Math.min(w, h) * 0.042, 1.0, 0, true, 0, 'all');
         }
-        requestAnimationFrame(renderSrvArch);
       }
-      requestAnimationFrame(renderSrvArch);
+      drawSrvArchStatic();
+      window.addEventListener('resize', drawSrvArchStatic);
+      window.addEventListener('load', drawSrvArchStatic);
 
       /* ======================================================================
          8. SERVICE CARD 02: 3D MATRIX FURNITURE + CALLOUT ARROWS (#canvas-srv-int)
@@ -4146,22 +4028,9 @@
       let srvIntExplode = 0;
       let srvIntTargetExplode = 0;
 
-      srvIntBox.addEventListener('mousemove', function (e) {
+      function drawSrvIntStatic() {
         const r = srvIntBox.getBoundingClientRect();
-        const nx = ((e.clientX - r.left) / r.width) - 0.5;
-        const ny = (e.clientY - r.top) / r.height;
-        srvIntTargetYaw = -0.52 + nx * 2.1;
-        srvIntTargetExplode = Math.max(0, Math.min(1, 1 - Math.abs(ny - 0.5) * 1.4));
-        readoutSrvInt.textContent = 'EXPLODE JOINERY +' + Math.round(srvIntTargetExplode * 480) + 'MM';
-      });
-      srvIntBox.addEventListener('mouseleave', function () {
-        srvIntTargetExplode = 0;
-        readoutSrvInt.textContent = 'SOFA + ISLAND + CREDENZA';
-      });
-
-      function renderSrvInt() {
-        const r = srvIntBox.getBoundingClientRect();
-        if (r.bottom > 0 && r.top < window.innerHeight) {
+        if (r.width > 0) {
           if (srvIntCanvas.width !== Math.floor(r.width) || srvIntCanvas.height !== Math.floor(r.height)) {
             srvIntCanvas.width = Math.floor(r.width);
             srvIntCanvas.height = Math.floor(r.height);
@@ -4170,10 +4039,6 @@
           const w = srvIntCanvas.width;
           const h = srvIntCanvas.height;
           ctx.clearRect(0, 0, w, h);
-
-          srvIntTargetYaw += 0.002;
-          srvIntYaw += (srvIntTargetYaw - srvIntYaw) * 0.1;
-          srvIntExplode += (srvIntTargetExplode - srvIntExplode) * 0.1;
 
           const cx = w * 0.5;
           const cy = h * 0.64;
@@ -4205,9 +4070,10 @@
             drawCalloutArrow(ctx, projectIso(1.2 + ex * 0.4, 0.6, 1.8, srvIntYaw, srvIntPitch, cx, cy, sc), w * 0.75, h * 0.75, 'MEJA ISLAND TRAVERTINE', 'Top Table Batu Alam Monolitik', '#F59E0B');
           }
         }
-        requestAnimationFrame(renderSrvInt);
       }
-      requestAnimationFrame(renderSrvInt);
+      drawSrvIntStatic();
+      window.addEventListener('resize', drawSrvIntStatic);
+      window.addEventListener('load', drawSrvIntStatic);
 
       /* ======================================================================
          9. SERVICE CARD 03: DENAH LAYOUT PLAN LANTAI 1 & LANTAI 2 (7000x15000mm) (#canvas-srv-mp)
@@ -4218,17 +4084,9 @@
       let mpScanX = 0.5;
       let mpScanY = 0.5;
 
-      srvMpBox.addEventListener('mousemove', function (e) {
+      function drawSrvMpStatic() {
         const r = srvMpBox.getBoundingClientRect();
-        mpScanX = (e.clientX - r.left) / r.width;
-        mpScanY = (e.clientY - r.top) / r.height;
-        const side = mpScanX < 0.5 ? 'DENAH LANTAI 1 (±0.00)' : 'DENAH LANTAI 2 (+3.60)';
-        readoutSrvMp.textContent = side + ' · 7000 × 15000 MM';
-      });
-
-      function renderSrvMp() {
-        const r = srvMpBox.getBoundingClientRect();
-        if (r.bottom > 0 && r.top < window.innerHeight) {
+        if (r.width > 0) {
           if (srvMpCanvas.width !== Math.floor(r.width) || srvMpCanvas.height !== Math.floor(r.height)) {
             srvMpCanvas.width = Math.floor(r.width);
             srvMpCanvas.height = Math.floor(r.height);
@@ -4314,18 +4172,11 @@
             { x: 0.46, y: 0.82, w: 0.54, h: 0.18, name: 'BALKON + KISI KAYU', elev: '+3.55', col: '#F59E0B', fill: 'rgba(245,158,11,0.2)' }
           ], '7000 MM (3225 + 3775)');
 
-          const sx = mpScanX * w;
-          const sy = mpScanY * h;
-          ctx.strokeStyle = 'rgba(194, 255, 10, 0.45)';
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(sx, 0); ctx.lineTo(sx, h);
-          ctx.moveTo(0, sy); ctx.lineTo(w, sy);
-          ctx.stroke();
         }
-        requestAnimationFrame(renderSrvMp);
       }
-      requestAnimationFrame(renderSrvMp);
+      drawSrvMpStatic();
+      window.addEventListener('resize', drawSrvMpStatic);
+      window.addEventListener('load', drawSrvMpStatic);
 
       /* ======================================================================
          10. SERVICE CARD 04: BUILD — 4D TIME-LAPSE 1-SIDED ROOF HOUSE (#canvas-srv-build)
@@ -4337,16 +4188,6 @@
       let buildTlHovering = false;
       let buildTlYaw = 0.58;
 
-      srvBuildBox.addEventListener('mousemove', function (e) {
-        buildTlHovering = true;
-        const r = srvBuildBox.getBoundingClientRect();
-        buildTlProgress = Math.max(0.05, Math.min(1, (e.clientX - r.left) / r.width));
-        buildTlYaw = 0.45 + ((e.clientY - r.top) / r.height - 0.5) * 0.7;
-      });
-      srvBuildBox.addEventListener('mouseleave', function () {
-        buildTlHovering = false;
-      });
-
       const buildPhaseNames = [
         'TAHAP 1/5 · PONDASI FOOTPLAT & BALOK SLOOF',
         'TAHAP 2/5 · KOLOM STRUKTUR MENERUS BAWAH–ATAS',
@@ -4355,9 +4196,9 @@
         'TAHAP 5/5 · SECONDARY SKIN KAYU & FINISHING 100%'
       ];
 
-      function renderSrvBuild() {
+      function drawSrvBuildStatic() {
         const r = srvBuildBox.getBoundingClientRect();
-        if (r.bottom > 0 && r.top < window.innerHeight) {
+        if (r.width > 0) {
           if (srvBuildCanvas.width !== Math.floor(r.width) || srvBuildCanvas.height !== Math.floor(r.height)) {
             srvBuildCanvas.width = Math.floor(r.width);
             srvBuildCanvas.height = Math.floor(r.height);
@@ -4367,10 +4208,7 @@
           const h = srvBuildCanvas.height;
           ctx.clearRect(0, 0, w, h);
 
-          if (!buildTlHovering) {
-            buildTlProgress = (buildTlProgress + 0.0022) % 1.0;
-            buildTlYaw += 0.0016;
-          }
+          buildTlProgress = 1.0;
 
           drawMonoPitchTropicalHouseIsometric(ctx, w, h, buildTlYaw, 0.36, w * 0.48, h * 0.68, Math.min(w, h) * 0.042, buildTlProgress, 0, true, 0, 'all');
 
@@ -4382,9 +4220,10 @@
           const stIdx = Math.min(4, Math.floor(buildTlProgress * 5));
           readoutSrvBuild.textContent = buildPhaseNames[stIdx] + ' · ' + Math.round(buildTlProgress * 100) + '%';
         }
-        requestAnimationFrame(renderSrvBuild);
       }
-      requestAnimationFrame(renderSrvBuild);
+      drawSrvBuildStatic();
+      window.addEventListener('resize', drawSrvBuildStatic);
+      window.addEventListener('load', drawSrvBuildStatic);
 
       /* ======================================================================
          11. DESIGN-TO-BUILD 6-PHASE METHODOLOGY STAGE (#hww-bim-canvas)
@@ -4482,6 +4321,7 @@
           aureliaSiteCard.style.opacity = '1';
           aureliaSiteCard.style.clipPath = getMountainPolygon(1);
         }
+        drawHwwStatic();
       }
 
       hwwStepPills.forEach(function (btn) {
@@ -4491,9 +4331,9 @@
         });
       });
 
-      function renderHwwStage(now) {
+      function drawHwwStatic() {
         const r = hwwBimCanvas.parentElement.getBoundingClientRect();
-        if (r.bottom > 0 && r.top < window.innerHeight) {
+        if (r.width > 0) {
           if (hwwBimCanvas.width !== Math.floor(r.width) || hwwBimCanvas.height !== Math.floor(r.height)) {
             hwwBimCanvas.width = Math.floor(r.width);
             hwwBimCanvas.height = Math.floor(r.height);
@@ -4503,15 +4343,16 @@
           const h = hwwBimCanvas.height;
           ctx.clearRect(0, 0, w, h);
 
-          const yaw = 0.56 + Math.sin(now * 0.0005) * 0.35;
+          const yaw = 0.56;
           const pitch = 0.36;
           const buildRatioByStep = [0.20, 0.46, 0.72, 1.0, 1.0, 1.0][activeHwwStep] || 1.0;
           const modeByStep = activeHwwStep === 1 ? 1 : (activeHwwStep === 3 ? 2 : 0);
           drawMonoPitchTropicalHouseIsometric(ctx, w, h, yaw, pitch, w * 0.48, h * 0.68, Math.min(w, h) * 0.042, buildRatioByStep, modeByStep, true, 0, 'all');
         }
-        requestAnimationFrame(renderHwwStage);
       }
-      requestAnimationFrame(renderHwwStage);
+      drawHwwStatic();
+      window.addEventListener('resize', drawHwwStatic);
+      window.addEventListener('load', drawHwwStatic);
 
       /* ======================================================================
          12. WORD-BY-WORD SCROLL REVEAL, PARALLAX, PYRAMID CARDS & WIB CLOCK
@@ -4595,7 +4436,7 @@
         parallaxImgs.forEach(function (img) {
           const wrap = img.parentElement;
           const r = wrap.getBoundingClientRect();
-          if (r.bottom > 0 && r.top < window.innerHeight) {
+          if (r.width > 0) {
             const centerOffset = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
             img.style.transform = 'translate3d(0, ' + (centerOffset * -34).toFixed(1) + 'px, 0)';
           }
