@@ -74,3 +74,11 @@ Latar: user menilai animasi 3D membuat landing "kurang simple" dan memilih opsi 
 - **Methodology (hww):** ayunan yaw sinusoidal dihapus; sudut tetap 0.56; tombol 6 fase tetap mengganti tahap gambar secara statis.
 - Semua teks "GERAKKAN KURSOR…" diganti keterangan statis yang jujur. Yang TIDAK diubah: kursor invert (ronde 5), Lenis (ronde 6), pelebaran kotak hero saat scroll, reveal scroll & counter statistik — bukan animasi 3D.
 - Uji: node --check lulus; smoke jsdom eksekusi penuh (canvas di-stub): 0 error, 7 canvas utuh, 0 tombol mode/sound/progress, 0 teks petunjuk kursor. Berkas menyusut ±7,3 KB.
+
+## Ronde 9 — Canvas isometric diganti video arsitektur (2026-11-11, perintah user)
+Klarifikasi user atas ronde 8: maksudnya bukan distatiskan — seluruh isometric 3D diganti **video hasil generate bertema arsitektur**.
+- 6 video digenerate (batas alat 6/pesan): hero (orbit rumah tropis mono-pitch, senja), about (kolom beton & kisi kayu), services arch (eksterior modern), int (ruang keluarga hangat), mp (aerial kawasan), build (time-lapse konstruksi). Semua 1280×720 10 dtk; frame tiap video diperiksa visual satu per satu sebelum dipasang. Master mentah (77 MB) disimpan di luar repo (~/yfarch-video-src).
+- Web: hero dikompres 2,4 MB (720p CRF30); lima lainnya ±0,5–1,1 MB (540p CRF32); poster WebP per panel. Total video ±6,7 MB; yang di bawah lipatan lazy-load via IntersectionObserver (poster tampil duluan, video diputar saat mendekati viewport, jeda saat jauh; prefers-reduced-motion → poster saja).
+- 6 canvas diganti <video> memakai id/class CSS yang sama (layout utuh); mesin JS keenam canvas + slider explode About dihapus; tombol lapis About kini hanya mengganti teks rincian (readout "LAPIS: …"). Semua judul/readout panel ditulis ulang jujur + label "ILUSTRASI VIDEO AI" di keterangan panel (video generik, bukan dokumentasi proyek asli).
+- Tersisa 1 canvas: methodology (#hww-bim-canvas) — video ke-7 menyusul pada pesan berikutnya karena batas 6 video per pesan.
+- Uji: node --check lulus; smoke jsdom 0 error (termasuk perbaikan guard matchMedia); 6 <video> + 1 canvas utuh.

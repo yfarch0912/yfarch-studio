@@ -2240,6 +2240,9 @@
     .img-badge { display: inline-block; background: #111111; color: #FFFFFF; padding: 1px 7px; border-radius: 99px; margin-right: 6px; font-size: 9px; letter-spacing: 0.08em; }
     @media (max-width: 560px) { .note-gallery { grid-template-columns: 1fr; } .note-gallery img { height: 220px; } }
   </style>
+<style>
+  video.panel-video{object-fit:cover;object-position:center;background:#070A0F}
+</style>
 </head>
 <body>
 
@@ -2303,11 +2306,11 @@
     <div class="showreel-scroll-track" id="showreel-scroll-track">
       <div class="showreel-sticky-stage">
         <div class="showreel-box" id="showreel-box" data-cursor="lens">
-          <canvas id="hero-bim-canvas"></canvas>
+          <video id="hero-bim-canvas" class="panel-video" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-poster.webp" src="assets/video/hero.mp4" aria-label="Video ilustrasi AI rumah tropis dua lantai atap miring satu sisi"></video>
 
           <div class="bim-top-hud">
             <div class="bim-hud-card">
-              <div style="color:var(--accent-lime);font-weight:600" id="bim-scene-title">ISOMETRIC 3D BIM // RUMAH TROPIS ATAP MIRING 1 SISI (MONO-PITCH)</div>
+              <div style="color:var(--accent-lime);font-weight:600" id="bim-scene-title">RUMAH TROPIS ATAP MIRING 1 SISI (MONO-PITCH)</div>
               <div id="bim-telemetry-readout">KOLOM STRUKTUR MENERUS (PONDASI FOOTPLAT → L1 → L2 → BALOK ATAP MIRING 1 SISI)</div>
               <div style="color:#38BDF8">PROBOLINGGO, JAWA TIMUR · YFARCHITECT STUDIO</div>
             </div>
@@ -2315,7 +2318,7 @@
                       </div>
 
           <div class="showreel-controls">
-            <span class="showreel-pill" id="showreel-scene-label">● 3D Isometric Rumah Tropis Atap Miring 1 Sisi (Mono-Pitch)</span>
+            <span class="showreel-pill" id="showreel-scene-label">● Rumah Tropis Atap Miring 1 Sisi (Mono-Pitch) · Ilustrasi Video AI</span>
           </div>
 
         </div>
@@ -2344,21 +2347,19 @@
       <!-- Interactive 3D Isometric Layer Dissector Workbench -->
       <div class="about-workbench">
         <div class="about-iso-stage" id="about-iso-stage" data-cursor="drawing">
-          <canvas id="about-iso-canvas"></canvas>
+          <video id="about-iso-canvas" class="panel-video" muted loop playsinline preload="none" poster="assets/video/about-poster.webp" data-src="assets/video/about.mp4" aria-label="Video ilustrasi AI eksterior rumah tropis kolom beton dan kisi kayu"></video>
           <div class="about-iso-top">
-            <span style="color:var(--accent-lime)">INTERACTIVE 3D LAYER DISSECTOR // MONO-PITCH TROPICAL HOUSE</span>
-            <span id="about-iso-readout">EXPLODE: 25% · ALL LAYERS</span>
+            <span style="color:var(--accent-lime)">PROFIL STUDIO // RUMAH TROPIS MONO-PITCH</span>
+            <span id="about-iso-readout">LAPIS: SEMUA</span>
           </div>
           <div class="about-iso-bot">
-            <span>EXPLODE LAPISAN STRUKTUR:</span>
-            <input type="range" id="about-explode-slider" min="0" max="100" value="25" style="accent-color:var(--accent-lime);width:150px" aria-label="Explode 3D structural layers" />
-            <span id="about-explode-val" style="color:var(--accent-lime);font-weight:600">25%</span>
+            <span>VIDEO ILUSTRASI AI · KOLOM BETON &amp; KISI KAYU RUMAH TROPIS</span>
           </div>
         </div>
 
         <div class="about-controls-col">
           <div>
-            <span class="meta-label" style="color:var(--accent-lime)">PILIH LAPIS STRUKTUR UNTUK INSPEKSI &amp; PANAH PENJELASAN</span>
+            <span class="meta-label" style="color:var(--accent-lime)">PILIH LAPIS STRUKTUR UNTUK MEMBACA RINCIANNYA</span>
             <div class="layer-Cards-grid">
               <button type="button" class="layer-inspect-btn active" data-inspect-layer="all">
                 <div>
@@ -2613,14 +2614,14 @@
         </div>
 
         <div class="srv-drawing-box" id="box-arch-matrix" data-cursor="drawing">
-          <canvas class="srv-matrix-canvas" id="canvas-srv-arch"></canvas>
+          <video class="srv-matrix-canvas panel-video" id="canvas-srv-arch" muted loop playsinline preload="none" poster="assets/video/srv-arch-poster.webp" data-src="assets/video/srv-arch.mp4" aria-label="Video ilustrasi AI eksterior rumah modern tropis"></video>
           <div class="srv-drawing-top">
-            <span>ISOMETRIC 3D RUMAH TROPIS ATAP MIRING 1 SISI // CALLOUT ARROWS</span>
+            <span>ARSITEKTUR // EKSTERIOR RUMAH MODERN TROPIS</span>
             <span>(01)</span>
           </div>
           <div class="srv-drawing-foot">
-            <span class="srv-drawing-foot-left">ISOMETRIC STATIS · STRUKTUR ATAP MIRING 1 SISI &amp; KOLOM MENERUS</span>
-            <span id="readout-srv-arch" style="color:var(--accent-lime)">MONO-PITCH ROOF · KOLOM MENERUS</span>
+            <span class="srv-drawing-foot-left">EKSTERIOR RUMAH MODERN · ILUSTRASI VIDEO AI</span>
+            <span id="readout-srv-arch" style="color:var(--accent-lime)">FASAD &amp; TAMAN TROPIS</span>
           </div>
         </div>
       </article>
@@ -2656,14 +2657,14 @@
         </div>
 
         <div class="srv-drawing-box" id="box-int-matrix" data-cursor="drawing">
-          <canvas class="srv-matrix-canvas" id="canvas-srv-int"></canvas>
+          <video class="srv-matrix-canvas panel-video" id="canvas-srv-int" muted loop playsinline preload="none" poster="assets/video/srv-int-poster.webp" data-src="assets/video/srv-int.mp4" aria-label="Video ilustrasi AI interior ruang keluarga hangat"></video>
           <div class="srv-drawing-top">
-            <span>3D MATRIX FURNITURE // ISOMETRIC EXPLODED JOINERY</span>
+            <span>INTERIOR // RUANG KELUARGA KAYU &amp; BATU ALAM</span>
             <span>(02)</span>
           </div>
           <div class="srv-drawing-foot">
-            <span class="srv-drawing-foot-left">JOINERY FURNITUR ISOMETRIC · SOFA, ISLAND &amp; CREDENZA</span>
-            <span id="readout-srv-int" style="color:#38BDF8">SOFA + ISLAND + CREDENZA</span>
+            <span class="srv-drawing-foot-left">SOFA, MEJA BATU &amp; CREDENZA · ILUSTRASI VIDEO AI</span>
+            <span id="readout-srv-int" style="color:#38BDF8">RUANG KELUARGA HANGAT</span>
           </div>
         </div>
       </article>
@@ -2699,14 +2700,14 @@
         </div>
 
         <div class="srv-drawing-box" id="box-mp-siteplan" data-cursor="drawing">
-          <canvas class="srv-matrix-canvas" id="canvas-srv-mp"></canvas>
+          <video class="srv-matrix-canvas panel-video" id="canvas-srv-mp" muted loop playsinline preload="none" poster="assets/video/srv-mp-poster.webp" data-src="assets/video/srv-mp.mp4" aria-label="Video ilustrasi AI kawasan hunian dari udara"></video>
           <div class="srv-drawing-top">
-            <span>CAD SITE PLAN &amp; LAYOUT PLAN // DENAH LANTAI 1 &amp; LANTAI 2 (7000×15000 MM)</span>
+            <span>MASTERPLAN // KAWASAN HUNIAN DARI UDARA</span>
             <span>(03)</span>
           </div>
           <div class="srv-drawing-foot">
-            <span class="srv-drawing-foot-left">DENAH LANTAI 1 &amp; LANTAI 2 · KAVLING 7000 × 15000 MM</span>
-            <span id="readout-srv-mp" style="color:var(--accent-lime)">LEBAR 7000MM (1975 + 5025)</span>
+            <span class="srv-drawing-foot-left">TATA KAWASAN &amp; RUANG HIJAU · ILUSTRASI VIDEO AI</span>
+            <span id="readout-srv-mp" style="color:var(--accent-lime)">AERIAL KAWASAN HUNIAN</span>
           </div>
         </div>
       </article>
@@ -2742,14 +2743,14 @@
         </div>
 
         <div class="srv-drawing-box" id="box-build-timelapse" data-cursor="drawing">
-          <canvas class="srv-matrix-canvas" id="canvas-srv-build"></canvas>
+          <video class="srv-matrix-canvas panel-video" id="canvas-srv-build" muted loop playsinline preload="none" poster="assets/video/srv-build-poster.webp" data-src="assets/video/srv-build.mp4" aria-label="Video ilustrasi AI lokasi konstruksi rumah"></video>
           <div class="srv-drawing-top">
-            <span>4D BUILD MATRIX // TIME-LAPSE KONSTRUKSI RUMAH TROPIS 1 SISI ATAP MIRING</span>
+            <span>BUILD // TIME-LAPSE KONSTRUKSI RUMAH</span>
             <span>(04)</span>
           </div>
           <div class="srv-drawing-foot">
-            <span class="srv-drawing-foot-left">TAHAPAN KONSTRUKSI · DARI PONDASI HINGGA FINISHING</span>
-            <span id="readout-srv-build" style="color:var(--accent-lime)">TAHAP 5/5 · FINISHING · 100%</span>
+            <span class="srv-drawing-foot-left">STRUKTUR BETON &amp; CRANE · ILUSTRASI VIDEO AI</span>
+            <span id="readout-srv-build" style="color:var(--accent-lime)">KONSTRUKSI BERLANGSUNG</span>
           </div>
         </div>
       </article>
@@ -3857,13 +3858,6 @@
         }
       };
 
-      aboutExplodeSlider.addEventListener('input', function () {
-        const v = parseInt(aboutExplodeSlider.value, 10);
-        aboutExplode = v / 100;
-        aboutExplodeVal.textContent = v + '%';
-        aboutIsoReadout.textContent = 'EXPLODE: ' + v + '% · LAYER: ' + aboutHighlight.toUpperCase();
-        drawAboutStatic();
-      });
 
       layerBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -3874,36 +3868,10 @@
             aboutSpecTitle.textContent = sp.title;
             aboutSpecBody.textContent = sp.body;
           }
-          aboutIsoReadout.textContent = 'EXPLODE: ' + Math.round(aboutExplode * 100) + '% · LAYER: ' + aboutHighlight.toUpperCase();
-          drawAboutStatic();
+          aboutIsoReadout.textContent = 'LAPIS: ' + aboutHighlight.toUpperCase();
         });
       });
 
-      function drawAboutStatic() {
-        const r = aboutIsoStage.getBoundingClientRect();
-        if (r.width > 0) {
-          if (aboutIsoCanvas.width !== Math.floor(r.width) || aboutIsoCanvas.height !== Math.floor(r.height)) {
-            aboutIsoCanvas.width = Math.floor(r.width);
-            aboutIsoCanvas.height = Math.floor(r.height);
-          }
-          const ctx = aboutIsoCanvas.getContext('2d');
-          const w = aboutIsoCanvas.width;
-          const h = aboutIsoCanvas.height;
-          ctx.clearRect(0, 0, w, h);
-
-          drawMonoPitchTropicalHouseIsometric(
-            ctx, w, h,
-            aboutYaw, aboutPitch,
-            w * 0.48, h * 0.68,
-            Math.min(w, h) * 0.04,
-            1.0, 0, true,
-            aboutExplode, aboutHighlight
-          );
-        }
-      }
-      drawAboutStatic();
-      window.addEventListener('resize', drawAboutStatic);
-      window.addEventListener('load', drawAboutStatic);
 
       // Interactive Parametric Space Simulator in #about
       const simAreaSlider = document.getElementById('sim-area-slider');
@@ -3953,277 +3921,29 @@
       let lastTick = performance.now();
 
       const bimTitles = [
-        'ISOMETRIC 3D BIM // RUMAH TROPIS ATAP MIRING 1 SISI (MONO-PITCH)',
+        'RUMAH TROPIS ATAP MIRING 1 SISI (MONO-PITCH)',
         'STRUKTUR KOLOM MENERUS // PONDASI FOOTPLAT KE ATAP MIRING 1 SISI',
         'RANGKA ATAP MIRING 1 SISI // OVERSTEK LEBAR & CLERESTORY',
         '4D TIME-LAPSE BUILD // PROSES KONSTRUKSI 0% HINGGA 100%'
       ];
 
-      // RONDE 8: hero statis — satu sudut isometric tetap, tanpa showreel berputar.
-      function drawHeroStatic() {
-        const r = showreelBox.getBoundingClientRect();
-        if (r.width > 0) {
-          if (heroBimCanvas.width !== Math.floor(r.width) || heroBimCanvas.height !== Math.floor(r.height)) {
-            heroBimCanvas.width = Math.floor(r.width);
-            heroBimCanvas.height = Math.floor(r.height);
-          }
-          const ctx = heroBimCanvas.getContext('2d');
-          const w = heroBimCanvas.width;
-          const h = heroBimCanvas.height;
-          ctx.clearRect(0, 0, w, h);
-          drawMonoPitchTropicalHouseIsometric(ctx, w, h, 0.62, 0.36, w * 0.48, h * 0.68, Math.min(w, h) * 0.043, 1.0, 0, true, 0, 'all');
-        }
-      }
-      drawHeroStatic();
-      window.addEventListener('resize', drawHeroStatic);
-      window.addEventListener('load', drawHeroStatic);
-      let heroRedrawQueued = false;
-      window.addEventListener('scroll', function () {
-        if (!heroRedrawQueued) {
-          heroRedrawQueued = true;
-          requestAnimationFrame(function () { heroRedrawQueued = false; drawHeroStatic(); });
-        }
-      }, { passive: true });
 
 
       /* ======================================================================
          7. SERVICE CARD 01: ISOMETRIC 3D RUMAH TROPIS ATAP MIRING 1 SISI (#canvas-srv-arch)
          ====================================================================== */
-      const srvArchCanvas = document.getElementById('canvas-srv-arch');
-      const srvArchBox = document.getElementById('box-arch-matrix');
-      const readoutSrvArch = document.getElementById('readout-srv-arch');
-      let srvArchYaw = 0.58;
-      let srvArchPitch = 0.36;
-      let srvArchTargetYaw = 0.58;
-      let srvArchTargetPitch = 0.36;
-
-      function drawSrvArchStatic() {
-        const r = srvArchBox.getBoundingClientRect();
-        if (r.width > 0) {
-          if (srvArchCanvas.width !== Math.floor(r.width) || srvArchCanvas.height !== Math.floor(r.height)) {
-            srvArchCanvas.width = Math.floor(r.width);
-            srvArchCanvas.height = Math.floor(r.height);
-          }
-          const ctx = srvArchCanvas.getContext('2d');
-          const w = srvArchCanvas.width;
-          const h = srvArchCanvas.height;
-          ctx.clearRect(0, 0, w, h);
-
-          drawMonoPitchTropicalHouseIsometric(ctx, w, h, srvArchYaw, srvArchPitch, w * 0.48, h * 0.68, Math.min(w, h) * 0.042, 1.0, 0, true, 0, 'all');
-        }
-      }
-      drawSrvArchStatic();
-      window.addEventListener('resize', drawSrvArchStatic);
-      window.addEventListener('load', drawSrvArchStatic);
 
       /* ======================================================================
          8. SERVICE CARD 02: 3D MATRIX FURNITURE + CALLOUT ARROWS (#canvas-srv-int)
          ====================================================================== */
-      const srvIntCanvas = document.getElementById('canvas-srv-int');
-      const srvIntBox = document.getElementById('box-int-matrix');
-      const readoutSrvInt = document.getElementById('readout-srv-int');
-      let srvIntYaw = -0.52;
-      let srvIntPitch = 0.42;
-      let srvIntTargetYaw = -0.52;
-      let srvIntExplode = 0;
-      let srvIntTargetExplode = 0;
-
-      function drawSrvIntStatic() {
-        const r = srvIntBox.getBoundingClientRect();
-        if (r.width > 0) {
-          if (srvIntCanvas.width !== Math.floor(r.width) || srvIntCanvas.height !== Math.floor(r.height)) {
-            srvIntCanvas.width = Math.floor(r.width);
-            srvIntCanvas.height = Math.floor(r.height);
-          }
-          const ctx = srvIntCanvas.getContext('2d');
-          const w = srvIntCanvas.width;
-          const h = srvIntCanvas.height;
-          ctx.clearRect(0, 0, w, h);
-
-          const cx = w * 0.5;
-          const cy = h * 0.64;
-          const sc = Math.min(w, h) * 0.05;
-          const ex = srvIntExplode * 1.45;
-
-          for (let g = -4.5; g <= 4.5; g += 0.75) {
-            drawIsoLine(ctx, projectIso(g, 0, -3.6, srvIntYaw, srvIntPitch, cx, cy, sc), projectIso(g, 0, 3.6, srvIntYaw, srvIntPitch, cx, cy, sc), 'rgba(255,255,255,0.1)', 0.9);
-            drawIsoLine(ctx, projectIso(-4.5, 0, g * 0.8, srvIntYaw, srvIntPitch, cx, cy, sc), projectIso(4.5, 0, g * 0.8, srvIntYaw, srvIntPitch, cx, cy, sc), 'rgba(255,255,255,0.1)', 0.9);
-          }
-
-          drawIsoBox(ctx, -3.8, 0, -2.2, 1.6, 0.52, 0.2, srvIntYaw, srvIntPitch, cx, cy, sc, '#C2FF0A', 'rgba(194,255,10,0.16)', 1.3);
-          drawIsoBox(ctx, -3.8, 0, 0.2, -1.4, 0.52, 2.4, srvIntYaw, srvIntPitch, cx, cy, sc, '#C2FF0A', 'rgba(194,255,10,0.16)', 1.3);
-          for (let cm = 0; cm < 3; cm++) {
-            const x1 = -3.6 + cm * 1.65;
-            drawIsoBox(ctx, x1, 0.55 + ex * 0.65, -2.0, x1 + 1.52, 1.05 + ex * 0.65, 0.1, srvIntYaw, srvIntPitch, cx, cy, sc, '#FFFFFF', 'rgba(255,255,255,0.15)', 1.2);
-          }
-          drawIsoBox(ctx, -3.8, 0.6 + ex * 1.15, -2.35 - ex * 0.45, 1.6, 2.15 + ex * 1.15, -1.85 - ex * 0.45, srvIntYaw, srvIntPitch, cx, cy, sc, '#38BDF8', 'rgba(56,189,248,0.18)', 1.2);
-
-          drawIsoBox(ctx, -0.6 + ex * 0.4, 0, 0.9, 2.8 + ex * 0.4, 0.72 + ex * 0.35, 2.6, srvIntYaw, srvIntPitch, cx, cy, sc, '#F59E0B', 'rgba(245,158,11,0.18)', 1.3);
-
-          for (let sh = 0; sh < 4; sh++) {
-            const sy = sh * 1.15 + ex * sh * 0.25;
-            drawIsoBox(ctx, 2.6 + ex * 0.5, sy, -2.4, 4.1 + ex * 0.5, sy + 0.18, 0.6, srvIntYaw, srvIntPitch, cx, cy, sc, '#FFFFFF', 'rgba(255,255,255,0.12)', 1.1);
-          }
-
-          if (w > 480) {
-            drawCalloutArrow(ctx, projectIso(-1.2, 0.9 + ex * 0.65, -1.0, srvIntYaw, srvIntPitch, cx, cy, sc), w * 0.22, h * 0.24, 'RANGKA SOFA JATI & BUSA', 'Modular L-Sectional Joinery', '#C2FF0A');
-            drawCalloutArrow(ctx, projectIso(1.2 + ex * 0.4, 0.6, 1.8, srvIntYaw, srvIntPitch, cx, cy, sc), w * 0.75, h * 0.75, 'MEJA ISLAND TRAVERTINE', 'Top Table Batu Alam Monolitik', '#F59E0B');
-          }
-        }
-      }
-      drawSrvIntStatic();
-      window.addEventListener('resize', drawSrvIntStatic);
-      window.addEventListener('load', drawSrvIntStatic);
 
       /* ======================================================================
          9. SERVICE CARD 03: DENAH LAYOUT PLAN LANTAI 1 & LANTAI 2 (7000x15000mm) (#canvas-srv-mp)
          ====================================================================== */
-      const srvMpCanvas = document.getElementById('canvas-srv-mp');
-      const srvMpBox = document.getElementById('box-mp-siteplan');
-      const readoutSrvMp = document.getElementById('readout-srv-mp');
-      let mpScanX = 0.5;
-      let mpScanY = 0.5;
-
-      function drawSrvMpStatic() {
-        const r = srvMpBox.getBoundingClientRect();
-        if (r.width > 0) {
-          if (srvMpCanvas.width !== Math.floor(r.width) || srvMpCanvas.height !== Math.floor(r.height)) {
-            srvMpCanvas.width = Math.floor(r.width);
-            srvMpCanvas.height = Math.floor(r.height);
-          }
-          const ctx = srvMpCanvas.getContext('2d');
-          const w = srvMpCanvas.width;
-          const h = srvMpCanvas.height;
-          ctx.clearRect(0, 0, w, h);
-
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
-          ctx.lineWidth = 1;
-          for (let x = 36; x < w; x += 36) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
-          for (let y = 36; y < h; y += 36) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
-
-          const planW = Math.min(w * 0.36, 250);
-          const planH = Math.min(h * 0.72, 360);
-          const yTop = (h - planH) * 0.52;
-          const xL1 = w * 0.11;
-          const xL2 = w * 0.55;
-
-          function drawFloorPlan(x0, title, rooms, dimTop) {
-            ctx.strokeStyle = '#C2FF0A';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(x0, yTop - 16);
-            ctx.lineTo(x0 + planW, yTop - 16);
-            ctx.stroke();
-            ctx.fillStyle = '#C2FF0A';
-            ctx.font = '600 10px "JetBrains Mono", monospace';
-            ctx.fillText(dimTop, x0 + planW * 0.25, yTop - 22);
-            ctx.fillStyle = '#FFFFFF';
-            ctx.fillText(title, x0, yTop - 36);
-
-            ctx.strokeStyle = 'rgba(255,255,255,0.85)';
-            ctx.lineWidth = 1.8;
-            ctx.strokeRect(x0, yTop, planW, planH);
-
-            rooms.forEach(function (rm) {
-              const rx = x0 + rm.x * planW;
-              const ry = yTop + rm.y * planH;
-              const rw = rm.w * planW;
-              const rh = rm.h * planH;
-              ctx.fillStyle = rm.fill || 'rgba(255,255,255,0.06)';
-              ctx.fillRect(rx, ry, rw, rh);
-              ctx.strokeStyle = rm.col || '#FFFFFF';
-              ctx.lineWidth = 1.2;
-              ctx.strokeRect(rx, ry, rw, rh);
-
-              ctx.fillStyle = '#C2FF0A';
-              [[rx, ry], [rx + rw, ry], [rx, ry + rh], [rx + rw, ry + rh]].forEach(function (pt) {
-                ctx.fillRect(pt[0] - 2.5, pt[1] - 2.5, 5, 5);
-              });
-
-              ctx.fillStyle = '#EAEAEA';
-              ctx.font = '500 8.5px "JetBrains Mono", monospace';
-              ctx.fillText(rm.name, rx + 5, ry + 13);
-              if (rm.elev) {
-                ctx.fillStyle = 'rgba(194,255,10,0.85)';
-                ctx.fillText(rm.elev, rx + 5, ry + 24);
-              }
-            });
-          }
-
-          drawFloorPlan(xL1, 'DENAH LANTAI 1 ( SKALA 1:100 )', [
-            { x: 0.0, y: 0.0, w: 0.70, h: 0.20, name: 'KT UTAMA (4925)', elev: '±0.00', col: '#FFFFFF', fill: 'rgba(255,255,255,0.1)' },
-            { x: 0.70, y: 0.0, w: 0.30, h: 0.10, name: 'KM/WC', elev: '-0.05', col: '#38BDF8' },
-            { x: 0.70, y: 0.10, w: 0.30, h: 0.12, name: 'MUSHOLLA', elev: '+0.05', col: '#C2FF0A', fill: 'rgba(194,255,10,0.14)' },
-            { x: 0.0, y: 0.20, w: 0.22, h: 0.32, name: 'VOID TAMAN', elev: '-0.10', col: '#22C55E', fill: 'rgba(34,197,94,0.14)' },
-            { x: 0.22, y: 0.20, w: 0.78, h: 0.22, name: 'R. MAKAN & DAPUR', elev: '±0.00', col: '#FFFFFF' },
-            { x: 0.22, y: 0.42, w: 0.78, h: 0.22, name: 'R. KELUARGA & TANGGA', elev: '±0.00', col: '#FFFFFF' },
-            { x: 0.0, y: 0.52, w: 0.28, h: 0.14, name: 'R. TAMU', elev: '±0.00', col: '#F59E0B' },
-            { x: 0.0, y: 0.66, w: 0.28, h: 0.34, name: 'TAMAN (1975)', elev: '+0.00', col: '#22C55E', fill: 'rgba(34,197,94,0.15)' },
-            { x: 0.28, y: 0.64, w: 0.72, h: 0.36, name: 'CARPORT 2 MOBIL (5025)', elev: '-0.15', col: '#38BDF8', fill: 'rgba(56,189,248,0.16)' }
-          ], '7000 MM (4925 + 2075)');
-
-          drawFloorPlan(xL2, 'DENAH LANTAI 2 ( EL +3.60M )', [
-            { x: 0.0, y: 0.0, w: 0.46, h: 0.26, name: 'KT TAMU / ANAK 1', elev: '+3.60', col: '#FFFFFF' },
-            { x: 0.46, y: 0.0, w: 0.20, h: 0.16, name: 'KM/WC', elev: '+3.55', col: '#38BDF8' },
-            { x: 0.66, y: 0.0, w: 0.34, h: 0.26, name: 'VOID JEMUR', elev: '+3.50', col: '#F59E0B' },
-            { x: 0.0, y: 0.26, w: 1.0, h: 0.32, name: 'R. DUDUK & BUKAAN TANGGA', elev: '+3.60', col: '#C2FF0A', fill: 'rgba(194,255,10,0.12)' },
-            { x: 0.0, y: 0.58, w: 0.46, h: 0.32, name: 'KT ANAK 2 (DEPAN)', elev: '+3.60', col: '#FFFFFF', fill: 'rgba(255,255,255,0.12)' },
-            { x: 0.46, y: 0.58, w: 0.54, h: 0.24, name: 'KT ANAK 3', elev: '+3.60', col: '#FFFFFF' },
-            { x: 0.46, y: 0.82, w: 0.54, h: 0.18, name: 'BALKON + KISI KAYU', elev: '+3.55', col: '#F59E0B', fill: 'rgba(245,158,11,0.2)' }
-          ], '7000 MM (3225 + 3775)');
-
-        }
-      }
-      drawSrvMpStatic();
-      window.addEventListener('resize', drawSrvMpStatic);
-      window.addEventListener('load', drawSrvMpStatic);
 
       /* ======================================================================
          10. SERVICE CARD 04: BUILD — 4D TIME-LAPSE 1-SIDED ROOF HOUSE (#canvas-srv-build)
          ====================================================================== */
-      const srvBuildCanvas = document.getElementById('canvas-srv-build');
-      const srvBuildBox = document.getElementById('box-build-timelapse');
-      const readoutSrvBuild = document.getElementById('readout-srv-build');
-      let buildTlProgress = 0.0;
-      let buildTlHovering = false;
-      let buildTlYaw = 0.58;
-
-      const buildPhaseNames = [
-        'TAHAP 1/5 · PONDASI FOOTPLAT & BALOK SLOOF',
-        'TAHAP 2/5 · KOLOM STRUKTUR MENERUS BAWAH–ATAS',
-        'TAHAP 3/5 · PLAT LANTAI 2, KANOPI CARPORT & BATA EKSPOS',
-        'TAHAP 4/5 · KUDA-KUDA & ATAP MIRING 1 SISI (MONO-PITCH)',
-        'TAHAP 5/5 · SECONDARY SKIN KAYU & FINISHING 100%'
-      ];
-
-      function drawSrvBuildStatic() {
-        const r = srvBuildBox.getBoundingClientRect();
-        if (r.width > 0) {
-          if (srvBuildCanvas.width !== Math.floor(r.width) || srvBuildCanvas.height !== Math.floor(r.height)) {
-            srvBuildCanvas.width = Math.floor(r.width);
-            srvBuildCanvas.height = Math.floor(r.height);
-          }
-          const ctx = srvBuildCanvas.getContext('2d');
-          const w = srvBuildCanvas.width;
-          const h = srvBuildCanvas.height;
-          ctx.clearRect(0, 0, w, h);
-
-          buildTlProgress = 1.0;
-
-          drawMonoPitchTropicalHouseIsometric(ctx, w, h, buildTlYaw, 0.36, w * 0.48, h * 0.68, Math.min(w, h) * 0.042, buildTlProgress, 0, true, 0, 'all');
-
-          ctx.fillStyle = 'rgba(255,255,255,0.15)';
-          ctx.fillRect(24, h - 48, w - 48, 4);
-          ctx.fillStyle = '#C2FF0A';
-          ctx.fillRect(24, h - 48, (w - 48) * buildTlProgress, 4);
-
-          const stIdx = Math.min(4, Math.floor(buildTlProgress * 5));
-          readoutSrvBuild.textContent = buildPhaseNames[stIdx] + ' · ' + Math.round(buildTlProgress * 100) + '%';
-        }
-      }
-      drawSrvBuildStatic();
-      window.addEventListener('resize', drawSrvBuildStatic);
-      window.addEventListener('load', drawSrvBuildStatic);
 
       /* ======================================================================
          11. DESIGN-TO-BUILD 6-PHASE METHODOLOGY STAGE (#hww-bim-canvas)
@@ -4853,6 +4573,26 @@
         lnk.setAttribute('rel', 'noopener');
       });
     })();
-  </script>
+  
+      // RONDE 9: video panel di bawah lipatan dimuat & diputar saat mendekati viewport.
+      const panelVideos = Array.from(document.querySelectorAll('video.panel-video[data-src]'));
+      const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+      const heroVideoEl = document.getElementById('hero-bim-canvas');
+      if (heroVideoEl && reduceMotion) { heroVideoEl.removeAttribute('autoplay'); }
+      if ('IntersectionObserver' in window && !reduceMotion) {
+        const videoObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            const v = en.target;
+            if (en.isIntersecting) {
+              if (!v.getAttribute('src') && v.dataset.src) { v.src = v.dataset.src; v.load(); }
+              const p = v.play(); if (p) p.catch(function () {});
+            } else if (!v.paused) { v.pause(); }
+          });
+        }, { rootMargin: '240px 0px' });
+        panelVideos.forEach(function (v) { videoObserver.observe(v); });
+      } else if (!reduceMotion) {
+        panelVideos.forEach(function (v) { if (v.dataset.src) { v.src = v.dataset.src; } });
+      }
+</script>
 </body>
 </html>
