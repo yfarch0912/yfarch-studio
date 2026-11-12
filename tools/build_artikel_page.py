@@ -126,7 +126,13 @@ def load_archives(seen_slugs):
         except Exception:
             continue
         slug = e.get("slug")
-        if not slug or slug in seen_slugs or not e.get("title") or not e.get("body"):
+        if not slug or not e.get("title") or not e.get("body"):
+            print(f"PERINGATAN: arsip dilewati (slug/judul/isi tidak lengkap): {path}")
+            continue
+        if e["body"].startswith("Lihat journal/"):
+            print(f"PERINGATAN: arsip berisi penunjuk, bukan isi artikel: {path}")
+            continue
+        if slug in seen_slugs:
             continue
         seen_slugs.add(slug)
         date = e.get("date", "")
