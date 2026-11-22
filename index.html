@@ -2243,6 +2243,73 @@
 <style>
   video.panel-video{object-fit:cover;object-position:center;background:#070A0F}
 </style>
+
+<style id="pricing-style">
+  .pricing-section { background: var(--bg-warm); padding: 110px 0 120px; position: relative; }
+  .pricing-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8A8A84; margin: 0 0 14px; }
+  .pricing-subhead { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin: 64px 0 26px; }
+  .pricing-subhead:first-of-type { margin-top: 8px; }
+  .pricing-sub-label { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); }
+  .pricing-sub-title { font-size: clamp(26px, 3vw, 38px); font-weight: 500; letter-spacing: -0.03em; color: var(--text-primary); margin-top: 8px; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: 18px; }
+  .price-card { background: #FFFFFF; border: 1px solid var(--border-light); border-radius: 22px; padding: 28px 26px 26px; display: flex; flex-direction: column; position: relative; }
+  .price-card.featured { background: var(--bg-dark); border-color: var(--bg-dark); color: #FFFFFF; }
+  .price-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; min-height: 24px; }
+  .price-badge { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: var(--accent-lime); color: #111111; }
+  .price-badge.popular { background: var(--accent-violet); color: #FFFFFF; }
+  .price-badge.best { background: var(--accent-amber); color: #111111; }
+  .price-name { font-size: 30px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; }
+  .price-sub { font-size: 14px; color: var(--text-secondary); margin-top: 6px; }
+  .price-card.featured .price-sub { color: rgba(255,255,255,0.66); }
+  .price-normal-label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 22px; }
+  .price-normal { font-size: 15px; color: var(--text-muted); text-decoration: line-through; margin-top: 3px; }
+  .price-card.featured .price-normal, .price-card.featured .price-normal-label { color: rgba(255,255,255,0.45); }
+  .price-main { display: flex; align-items: baseline; gap: 7px; margin-top: 4px; }
+  .price-value { font-size: 40px; font-weight: 600; letter-spacing: -0.035em; line-height: 1; }
+  .price-unit { font-size: 14px; color: var(--text-secondary); }
+  .price-card.featured .price-unit { color: rgba(255,255,255,0.6); }
+  .price-feats { list-style: none; margin: 22px 0 24px; padding: 0; flex: 1; }
+  .price-feats li { font-size: 13.5px; line-height: 1.45; color: #3D3D3A; padding: 7px 0 7px 20px; position: relative; border-top: 1px solid var(--border-light); }
+  .price-feats li::before { content: "—"; position: absolute; left: 0; color: var(--text-muted); }
+  .price-card.featured .price-feats li { color: rgba(255,255,255,0.85); border-top-color: rgba(255,255,255,0.14); }
+  .price-note { font-size: 12.5px; color: var(--text-muted); margin: -8px 0 18px; }
+  .est-btn { width: 100%; border: 0; cursor: pointer; border-radius: 999px; padding: 14px 18px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.09em; text-transform: uppercase; background: var(--bg-dark); color: #FFFFFF; transition: transform 0.15s ease, background 0.2s ease; }
+  .est-btn:hover { background: #26262A; }
+  .price-card.featured .est-btn { background: var(--accent-lime); color: #111111; }
+  .price-card.featured .est-btn:hover { background: #D2FF4D; }
+  .rab-card { background: #FFFFFF; border: 1px solid var(--border-light); border-radius: 22px; padding: 30px 28px; display: grid; grid-template-columns: minmax(280px, 420px) 1fr; gap: 34px; }
+  .rab-title { font-size: 34px; font-weight: 600; letter-spacing: -0.03em; }
+  .rab-sub { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-top: 5px; }
+  .rab-desc { font-size: 14.5px; color: #3D3D3A; margin-top: 14px; line-height: 1.55; }
+  .rab-output { display: inline-block; margin-top: 16px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.09em; border: 1px solid var(--border-light); border-radius: 999px; padding: 6px 12px; color: var(--text-secondary); }
+  .rab-scope-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 12px; }
+  .rab-scope { list-style: none; margin: 0; padding: 0; columns: 3; column-gap: 26px; }
+  .rab-scope li { font-size: 13.5px; color: #3D3D3A; padding: 6px 0 6px 20px; position: relative; border-top: 1px solid var(--border-light); break-inside: avoid; }
+  .rab-scope li::before { content: "—"; position: absolute; left: 0; color: var(--text-muted); }
+  .pricing-footnote { text-align: center; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.04em; color: var(--text-secondary); margin-top: 44px; }
+  @media (max-width: 900px) { .rab-card { grid-template-columns: 1fr; } .rab-scope { columns: 2; } }
+  @media (max-width: 560px) { .rab-scope { columns: 1; } .pricing-section { padding: 80px 0 90px; } }
+  .est-modal { position: fixed; inset: 0; z-index: 12000; display: none; align-items: center; justify-content: center; padding: 18px; }
+  .est-modal.open { display: flex; }
+  .est-backdrop { position: absolute; inset: 0; background: rgba(10,10,12,0.62); backdrop-filter: blur(6px); }
+  .est-card { position: relative; background: #FFFFFF; border-radius: 24px; max-width: 480px; width: 100%; padding: 30px 28px 26px; max-height: 88vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.35); }
+  .est-card h3 { font-size: 24px; font-weight: 600; letter-spacing: -0.03em; }
+  .est-rate { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.05em; color: var(--text-secondary); margin-top: 6px; text-transform: uppercase; }
+  .est-close { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 999px; border: 1px solid var(--border-light); background: #FFFFFF; cursor: pointer; font-size: 15px; line-height: 1; }
+  .est-field { margin-top: 20px; }
+  .est-field label { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; }
+  .est-field input[type="number"] { width: 100%; border: 1px solid var(--border-light); border-radius: 14px; padding: 13px 15px; font-size: 16px; font-family: var(--font-sans); color: var(--text-primary); background: #FFFFFF; box-sizing: border-box; }
+  .est-rab { display: flex; align-items: center; gap: 10px; margin-top: 16px; font-size: 14px; color: #3D3D3A; cursor: pointer; }
+  .est-rab input { width: 18px; height: 18px; accent-color: #111111; }
+  .est-lines { margin-top: 20px; border-top: 1px solid var(--border-light); }
+  .est-line { display: flex; justify-content: space-between; gap: 14px; font-size: 13.5px; color: #3D3D3A; padding: 9px 0; border-bottom: 1px solid var(--border-light); }
+  .est-total { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 14px 0 4px; }
+  .est-total span { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-secondary); }
+  .est-total strong { font-size: 26px; font-weight: 600; letter-spacing: -0.03em; }
+  .est-disclaimer { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-top: 10px; }
+  .est-wa { display: block; text-align: center; margin-top: 18px; background: var(--accent-lime); color: #111111; text-decoration: none; border-radius: 999px; padding: 14px 18px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.09em; text-transform: uppercase; }
+</style>
+
 </head>
 <body>
 
@@ -2262,6 +2329,7 @@
         <li><a href="#about" class="nav-link smooth-anchor" data-section="about" data-cursor="button">About</a></li>
         <li><a href="#work" class="nav-link smooth-anchor" data-section="work" data-cursor="button">Work</a></li>
         <li><a href="#services" class="nav-link smooth-anchor" data-section="services" data-cursor="button">Services</a></li>
+          <li><a href="#harga" class="nav-link smooth-anchor" data-section="harga" data-cursor="button">Harga</a></li>
         <li><a href="#how-we-work" class="nav-link smooth-anchor" data-section="how-we-work" data-cursor="button">Methodology</a></li>
         <li><a href="#journal" class="nav-link smooth-anchor" data-section="journal" data-cursor="button">Artikel/Jurnal</a></li>
       </ul>
@@ -2758,6 +2826,65 @@
   </section>
 
   <!-- DESIGN-TO-BUILD METHODOLOGY (6-PHASE PIPELINE) -->
+  
+  <!-- PRICING SECTION (HARGA JASA DESAIN — DATA RESMI DARI USER 22 NOV 2026) -->
+  <section class="pricing-section" id="harga">
+    <div class="section-container">
+      <p class="pricing-eyebrow">Harga — Jasa Desain Arsitektur</p>
+      <div class="section-header-row">
+        <h2 class="section-heading">Harga</h2>
+        <a class="outline-pill-btn" href="#contact" data-cursor="button" style="text-decoration:none">
+          <span>Konsultasi dulu</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="pricing-subhead">
+        <div>
+          <p class="pricing-sub-label">01 — Paket Desain</p>
+          <h3 class="pricing-sub-title">Pilih paket sesuai kebutuhan.</h3>
+        </div>
+        <p class="pricing-sub-label">6 Paket · / m²</p>
+      </div>
+      <div class="pricing-grid">
+        <article class="price-card"><div class="price-badges"><span class="price-badge">Diskon 30%</span></div><h3 class="price-name">BASIC</h3><p class="price-sub">Gambar Dasar + Visualisasi</p><p class="price-normal-label">HARGA NORMAL</p><p class="price-normal">Rp50.000</p><div class="price-main"><span class="price-value">Rp35.000</span><span class="price-unit">/ m²</span></div><ul class="price-feats"><li>Site plan</li><li>Denah rencana</li><li>Denah ukuran</li><li>Tampak</li><li>Potongan</li><li>Rencana atap</li><li>Rencana pintu &amp; jendela</li><li>Detail pondasi dasar</li><li>Sloof</li><li>Kolom</li><li>Balok</li><li>Detail struktur atap</li><li>3× render</li></ul><button type="button" class="est-btn" data-cursor="button" data-pkg="BASIC" data-rate="35000">Hitung Estimasi BASIC</button></article>
+        <article class="price-card featured"><div class="price-badges"><span class="price-badge popular">Paling Populer</span><span class="price-badge">Diskon 30%</span></div><h3 class="price-name">STANDARD</h3><p class="price-sub">Gambar Kerja + Visualisasi</p><p class="price-normal-label">HARGA NORMAL</p><p class="price-normal">Rp95.000</p><div class="price-main"><span class="price-value">Rp66.500</span><span class="price-unit">/ m²</span></div><ul class="price-feats"><li>Semua fasilitas Basic</li><li>Denah plafon</li><li>Denah lantai</li><li>Tampak lengkap</li><li>Detail kusen</li><li>Detail struktur</li><li>Detail pondasi</li><li>MEP dasar</li><li>Instalasi listrik dasar</li><li>Air bersih</li><li>Air kotor</li><li>Air hujan</li><li>6× render</li></ul><button type="button" class="est-btn" data-cursor="button" data-pkg="STANDARD" data-rate="66500">Hitung Estimasi STANDARD</button></article>
+        <article class="price-card"><div class="price-badges"><span class="price-badge">Diskon 30%</span></div><h3 class="price-name">PRO</h3><p class="price-sub">Gambar Kerja Lengkap</p><p class="price-normal-label">HARGA NORMAL</p><p class="price-normal">Rp145.000</p><div class="price-main"><span class="price-value">Rp101.500</span><span class="price-unit">/ m²</span></div><ul class="price-feats"><li>Semua fasilitas Standard</li><li>Detail arsitektur</li><li>Detail facade</li><li>Detail tangga</li><li>Detail kamar mandi</li><li>Detail konstruksi</li><li>Struktur lebih lengkap</li><li>MEP lebih lengkap</li><li>Detail penulangan</li><li>Detail area khusus</li><li>Render sesuai kebutuhan desain</li></ul><button type="button" class="est-btn" data-cursor="button" data-pkg="PRO" data-rate="101500">Hitung Estimasi PRO</button></article>
+        <article class="price-card"><div class="price-badges"><span class="price-badge">Diskon 30%</span></div><h3 class="price-name">INTERIOR</h3><p class="price-sub">Interior Design</p><p class="price-normal-label">HARGA NORMAL</p><p class="price-normal">Rp145.000</p><div class="price-main"><span class="price-value">Rp101.500</span><span class="price-unit">/ m²</span></div><ul class="price-feats"><li>Konsep interior</li><li>Moodboard</li><li>Layout furniture</li><li>Flooring</li><li>Ceiling</li><li>Material</li><li>Warna</li><li>Elevasi interior</li><li>Detail furniture</li><li>Detail aksesoris</li><li>Render sesuai kebutuhan desain</li></ul><p class="price-note">Perhitungan berdasarkan area interior yang didesain.</p><button type="button" class="est-btn" data-cursor="button" data-pkg="INTERIOR" data-rate="101500">Hitung Estimasi INTERIOR</button></article>
+        <article class="price-card"><div class="price-badges"><span class="price-badge">Diskon 30%</span></div><h3 class="price-name">EXTERIOR</h3><p class="price-sub">Exterior Design</p><p class="price-normal-label">HARGA NORMAL</p><p class="price-normal">Rp145.000</p><div class="price-main"><span class="price-value">Rp101.500</span><span class="price-unit">/ m²</span></div><ul class="price-feats"><li>Konsep facade</li><li>Komposisi massa</li><li>Material facade</li><li>Warna</li><li>Pintu &amp; jendela</li><li>Lighting exterior</li><li>Landscape dasar</li><li>Detail facade</li><li>Detail elemen exterior</li><li>Render sesuai kebutuhan desain</li></ul><button type="button" class="est-btn" data-cursor="button" data-pkg="EXTERIOR" data-rate="101500">Hitung Estimasi EXTERIOR</button></article>
+        <article class="price-card"><div class="price-badges"><span class="price-badge best">Best Value</span><span class="price-badge">Diskon 30%</span></div><h3 class="price-name">COMPLETE</h3><p class="price-sub">Interior + Exterior</p><p class="price-normal-label">HARGA NORMAL</p><p class="price-normal">Rp250.000</p><div class="price-main"><span class="price-value">Rp175.000</span><span class="price-unit">/ m²</span></div><ul class="price-feats"><li>Interior Design</li><li>Exterior Design</li><li>Konsep material</li><li>Furniture</li><li>Ceiling</li><li>Flooring</li><li>Facade</li><li>Lighting</li><li>Landscape</li><li>Detail interior</li><li>Detail exterior</li><li>Render sesuai kebutuhan desain</li></ul><button type="button" class="est-btn" data-cursor="button" data-pkg="COMPLETE" data-rate="175000">Hitung Estimasi COMPLETE</button></article>
+      </div>
+
+      <div class="pricing-subhead">
+        <div>
+          <p class="pricing-sub-label">02 — Layanan Terpisah</p>
+          <h3 class="pricing-sub-title">Di luar paket desain.</h3>
+        </div>
+      </div>
+      <article class="rab-card">
+        <div>
+          <div class="price-badges"><span class="price-badge">Diskon 15%</span></div>
+          <h3 class="rab-title">RAB</h3>
+          <p class="rab-sub">Rencana Anggaran Biaya</p>
+          <p class="rab-desc">Butuh estimasi biaya pembangunan berdasarkan desain Anda?</p>
+          <p class="price-normal-label">HARGA NORMAL</p>
+          <p class="price-normal">Rp15.000</p>
+          <div class="price-main"><span class="price-value">Rp12.750</span><span class="price-unit">/ m²</span></div>
+          <span class="rab-output">Output — Excel + PDF</span>
+          <div style="margin-top:20px">
+            <button type="button" class="est-btn" data-cursor="button" data-pkg="RAB" data-rate="12750" data-rab-only="1">Tambahkan RAB</button>
+          </div>
+        </div>
+        <div>
+          <p class="rab-scope-title">Cakupan Dokumen</p>
+          <ul class="rab-scope"><li>Rekap pekerjaan</li><li>Pekerjaan persiapan</li><li>Pekerjaan tanah</li><li>Pondasi</li><li>Struktur</li><li>Dinding</li><li>Lantai</li><li>Plafon</li><li>Atap</li><li>Kusen / pintu / jendela</li><li>Sanitair</li><li>Elektrikal</li><li>Plumbing</li><li>Finishing</li><li>Rekapitulasi total biaya</li></ul>
+        </div>
+      </article>
+
+      <p class="pricing-footnote">Harga dihitung per m² luas bangunan/area desain, dikonfirmasi dalam proposal tertulis setelah konsultasi pertama.</p>
+    </div>
+  </section>
+
   <section class="hww-section" id="how-we-work">
     <div class="hww-sticky">
       <div class="hww-grid">
@@ -4599,5 +4726,93 @@
         panelVideos.forEach(function (v) { if (v.dataset.src) { v.src = v.dataset.src; } });
       }
 </script>
+
+  <!-- ESTIMATOR MODAL (KALKULATOR ESTIMASI HARGA) -->
+  <div class="est-modal" id="est-modal" aria-hidden="true">
+    <div class="est-backdrop" id="est-backdrop"></div>
+    <div class="est-card" role="dialog" aria-modal="true" aria-labelledby="est-title" data-lenis-prevent>
+      <button type="button" class="est-close" id="est-close" aria-label="Tutup" data-cursor="button">✕</button>
+      <h3 id="est-title">Hitung Estimasi</h3>
+      <p class="est-rate" id="est-rate-line">Paket — · Rp0 / m²</p>
+      <div class="est-field">
+        <label for="est-area">Luas bangunan / area desain (m²)</label>
+        <input type="number" id="est-area" min="1" step="1" placeholder="mis. 120" inputmode="numeric">
+      </div>
+      <label class="est-rab" id="est-rab-row">
+        <input type="checkbox" id="est-rab-check">
+        <span>Tambah RAB — Rp12.750 / m² (Excel + PDF)</span>
+      </label>
+      <div class="est-lines" id="est-lines"></div>
+      <div class="est-total"><span>Total Estimasi</span><strong id="est-total">Rp0</strong></div>
+      <p class="est-disclaimer">Estimasi awal dari tarif per m². Angka final dikonfirmasi dalam proposal tertulis setelah konsultasi pertama.</p>
+      <a class="est-wa" id="est-wa" href="https://wa.me/6282142424750" target="_blank" rel="noopener">Kirim via WhatsApp</a>
+    </div>
+  </div>
+  <script>
+  (function () {
+    var RAB_RATE = 12750;
+    var modal = document.getElementById('est-modal');
+    if (!modal) return;
+    var areaInput = document.getElementById('est-area');
+    var rabRow = document.getElementById('est-rab-row');
+    var rabCheck = document.getElementById('est-rab-check');
+    var linesEl = document.getElementById('est-lines');
+    var totalEl = document.getElementById('est-total');
+    var rateLine = document.getElementById('est-rate-line');
+    var waBtn = document.getElementById('est-wa');
+    var current = { pkg: '', rate: 0, rabOnly: false };
+    function fmt(n) { return 'Rp' + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+    function compute() {
+      var area = parseFloat(areaInput.value) || 0;
+      var lines = [];
+      var total = 0;
+      var pkgTotal = current.rate * area;
+      lines.push([current.pkg + ' — ' + fmt(current.rate) + ' × ' + area + ' m²', fmt(pkgTotal)]);
+      total += pkgTotal;
+      if (!current.rabOnly && rabCheck.checked) {
+        var rabTotal = RAB_RATE * area;
+        lines.push(['RAB — ' + fmt(RAB_RATE) + ' × ' + area + ' m²', fmt(rabTotal)]);
+        total += rabTotal;
+      }
+      linesEl.innerHTML = lines.map(function (l) {
+        return '<div class="est-line"><span>' + l[0] + '</span><strong>' + l[1] + '</strong></div>';
+      }).join('');
+      totalEl.textContent = fmt(total);
+      var msg = 'Halo YFArchitect Studio, saya mau konsultasi estimasi harga.%0A' +
+        'Paket: ' + encodeURIComponent(current.pkg) + '%0A' +
+        'Luas: ' + area + ' m²%0A' +
+        ((!current.rabOnly && rabCheck.checked) ? 'Tambah RAB: ya%0A' : '') +
+        'Total estimasi: ' + encodeURIComponent(fmt(total));
+      waBtn.href = 'https://wa.me/6282142424750?text=' + msg;
+    }
+    function open(pkg, rate, rabOnly) {
+      current = { pkg: pkg, rate: rate, rabOnly: rabOnly };
+      rateLine.textContent = 'Paket ' + pkg + ' · ' + fmt(rate) + ' / m²' + (rabOnly ? ' · Layanan terpisah' : '');
+      rabRow.style.display = rabOnly ? 'none' : 'flex';
+      rabCheck.checked = false;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      if (window.__lenis) { window.__lenis.stop(); }
+      compute();
+      setTimeout(function () { areaInput.focus(); }, 60);
+    }
+    function close() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      if (window.__lenis) { window.__lenis.start(); }
+    }
+    document.querySelectorAll('.est-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        open(btn.getAttribute('data-pkg'), parseInt(btn.getAttribute('data-rate'), 10), btn.getAttribute('data-rab-only') === '1');
+      });
+    });
+    document.getElementById('est-close').addEventListener('click', close);
+    document.getElementById('est-backdrop').addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
+    areaInput.addEventListener('input', compute);
+    rabCheck.addEventListener('change', compute);
+  })();
+  </script>
+
 </body>
 </html>
