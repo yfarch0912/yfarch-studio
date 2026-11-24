@@ -618,123 +618,6 @@
       color: #111111;
     }
 
-    /* Interactive 3D Structural Dissector Workbench inside #about */
-    .about-workbench {
-      display: grid;
-      grid-template-columns: 6.2fr 5.8fr;
-      gap: 28px;
-      background: #0A0D12;
-      color: #FFFFFF;
-      border-radius: 26px;
-      padding: 28px;
-      border: 1px solid rgba(17, 17, 17, 0.12);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
-      margin-bottom: 36px;
-    }
-
-    .about-iso-stage {
-      position: relative;
-      min-height: 460px;
-      background: radial-gradient(circle at 50% 45%, #131C27 0%, #070A0F 75%);
-      border-radius: 18px;
-      border: 1px solid rgba(194, 255, 10, 0.22);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 16px 20px;
-    }
-
-    #about-iso-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .about-iso-top,
-    .about-iso-bot {
-      position: relative;
-      z-index: 4;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      color: rgba(255, 255, 255, 0.85);
-      pointer-events: none;
-    }
-
-    .about-iso-bot {
-      pointer-events: auto;
-      background: rgba(10, 13, 18, 0.82);
-      backdrop-filter: blur(8px);
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-    }
-
-    .about-controls-col {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .layer-Cards-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-    }
-
-    .layer-inspect-btn {
-      text-align: left;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #FFFFFF;
-      border-radius: 14px;
-      padding: 13px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      transition: all 0.22s ease;
-    }
-
-    .layer-inspect-btn:hover {
-      border-color: var(--accent-lime);
-      background: rgba(194, 255, 10, 0.07);
-    }
-
-    .layer-inspect-btn.active {
-      background: var(--accent-lime);
-      color: #0A0D12;
-      border-color: var(--accent-lime);
-    }
-
-    .layer-inspect-btn.active .layer-badge {
-      background: #0A0D12;
-      color: var(--accent-lime);
-    }
-
-    .layer-badge {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--accent-lime);
-      white-space: nowrap;
-    }
-
-    .about-spec-readout {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-      padding: 18px 20px;
-    }
-
     .about-simulator-bar {
       background: #FFFFFF;
       border: 1px solid #E2E2DC;
@@ -2186,7 +2069,6 @@
         padding: 0 24px;
       }
       .about-header-grid,
-      .about-workbench,
       .about-simulator-bar,
       .work-row.row-wide-left,
       .work-row.row-wide-right,
@@ -2394,7 +2276,7 @@
     </div>
   </header>
 
-  <!-- INTERACTIVE ABOUT SECTION: 3D ISOMETRIC LAYER DISSECTOR + EXPLODED SLIDER + PARAMETRIC CALCULATOR -->
+  <!-- ABOUT SECTION: STUDIO PROFILE + PARAMETRIC CALCULATOR -->
   <section class="about-section" id="about">
     <div class="section-container">
       <div class="about-header-grid">
@@ -2408,76 +2290,8 @@
         </div>
 
         <p class="about-statement" id="about-statement">
-          Kami merancang rumah tropis modern beratap miring satu sisi (*mono-pitch*) di Probolinggo dengan sistem struktur kolom menerus tanpa putus dari pondasi footplat bawah tanah hingga menopang balok miring atap di atas. Eksplorasi langsung setiap lapisan strukturnya pada bedah isometrik 3D interaktif di bawah ini.
+          Kami merancang rumah tropis modern beratap miring satu sisi (*mono-pitch*) di Probolinggo dengan sistem struktur kolom menerus tanpa putus dari pondasi footplat bawah tanah hingga menopang balok miring atap di atas.
         </p>
-      </div>
-
-      <!-- Interactive 3D Isometric Layer Dissector Workbench -->
-      <div class="about-workbench">
-        <div class="about-iso-stage" id="about-iso-stage" data-cursor="drawing">
-          <video id="about-iso-canvas" class="panel-video" muted loop playsinline preload="none" poster="assets/video/about-poster.webp" data-src="assets/video/about.mp4" aria-label="Video ilustrasi AI eksterior rumah tropis kolom beton dan kisi kayu"></video>
-          <div class="about-iso-top">
-            <span style="color:var(--accent-lime)">PROFIL STUDIO // RUMAH TROPIS MONO-PITCH</span>
-            <span id="about-iso-readout">LAPIS: SEMUA</span>
-          </div>
-          <div class="about-iso-bot">
-            <span>VIDEO ILUSTRASI AI · KOLOM BETON &amp; KISI KAYU RUMAH TROPIS</span>
-          </div>
-        </div>
-
-        <div class="about-controls-col">
-          <div>
-            <span class="meta-label" style="color:var(--accent-lime)">PILIH LAPIS STRUKTUR UNTUK MEMBACA RINCIANNYA</span>
-            <div class="layer-Cards-grid">
-              <button type="button" class="layer-inspect-btn active" data-inspect-layer="all">
-                <div>
-                  <div style="font-size:14px;font-weight:600">Semua Lapisan Struktur (Utuh)</div>
-                  <div style="font-size:11.5px;opacity:0.75">Tampilkan seluruh sistem dari pondasi hingga atap miring 1 sisi</div>
-                </div>
-                <span class="layer-badge">FULL BIM</span>
-              </button>
-
-              <button type="button" class="layer-inspect-btn" data-inspect-layer="roof">
-                <div>
-                  <div style="font-size:14px;font-weight:600">1. Atap Miring 1 Sisi (Mono-Pitch Roof)</div>
-                  <div style="font-size:11.5px;opacity:0.75">Kemiringan tunggal 24° + overstek lebar, kuda-kuda &amp; gording</div>
-                </div>
-                <span class="layer-badge">EL +7.0M → +10.4M</span>
-              </button>
-
-              <button type="button" class="layer-inspect-btn" data-inspect-layer="columns">
-                <div>
-                  <div style="font-size:14px;font-weight:600">2. Kolom Struktur Menerus Bawah–Atas (K1)</div>
-                  <div style="font-size:11.5px;opacity:0.75">Kolom beton bertulang menerus dari footplat langsung ke atap miring</div>
-                </div>
-                <span class="layer-badge">K1 15×40 CM</span>
-              </button>
-
-              <button type="button" class="layer-inspect-btn" data-inspect-layer="slab2">
-                <div>
-                  <div style="font-size:14px;font-weight:600">3. Plat &amp; Balok Lantai 2 + Secondary Skin Kayu</div>
-                  <div style="font-size:11.5px;opacity:0.75">Plat beton bertulang, balkon tropis, kisi kayu &amp; kanopi carport</div>
-                </div>
-                <span class="layer-badge">EL +3.60M</span>
-              </button>
-
-              <button type="button" class="layer-inspect-btn" data-inspect-layer="foundation">
-                <div>
-                  <div style="font-size:14px;font-weight:600">4. Pondasi Footplat &amp; Balok Sloof Pengikat</div>
-                  <div style="font-size:11.5px;opacity:0.75">12 titik telapak beton bertulang K-300 &amp; sloof 20×35 cm</div>
-                </div>
-                <span class="layer-badge">EL -1.50M</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="about-spec-readout" id="about-spec-readout">
-            <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--accent-lime);margin-bottom:4px" id="about-spec-title">INSPEKSI // SISTEM STRUKTUR RUMAH TROPIS ATAP MIRING 1 SISI</div>
-            <p style="font-size:13px;line-height:1.5;color:rgba(255,255,255,0.82)" id="about-spec-body">
-              Atap miring 1 sisi (*mono-pitch*) memberikan siluet modern yang tegas sekaligus mengalirkan air hujan tropis ke satu arah talang induk. Kolom sisi kanan diteruskan lebih tinggi hingga +10.4m untuk menopang balok bubungan tertinggi secara monolitik.
-            </p>
-          </div>
-        </div>
       </div>
 
       <!-- Interactive Parametric Space & RAB Calculator Bar -->
@@ -3944,63 +3758,7 @@
         }
       }
 
-      /* ======================================================================
-         5. INTERACTIVE ABOUT 3D LAYER DISSECTOR ENGINE (#about-iso-canvas)
-         ====================================================================== */
-      const aboutIsoCanvas = document.getElementById('about-iso-canvas');
-      const aboutIsoStage = document.getElementById('about-iso-stage');
-      const aboutExplodeSlider = document.getElementById('about-explode-slider');
-      const aboutExplodeVal = document.getElementById('about-explode-val');
-      const aboutIsoReadout = document.getElementById('about-iso-readout');
-      const aboutSpecTitle = document.getElementById('about-spec-title');
-      const aboutSpecBody = document.getElementById('about-spec-body');
-      const layerBtns = Array.from(document.querySelectorAll('.layer-inspect-btn'));
-
-      let aboutExplode = 0.25;
-      let aboutHighlight = 'all';
-      let aboutYaw = 0.62;
-      let aboutPitch = 0.36;
-      let aboutTargetYaw = 0.62;
-
-      const layerSpecs = {
-        all: {
-          title: 'INSPEKSI // SISTEM STRUKTUR RUMAH TROPIS ATAP MIRING 1 SISI',
-          body: 'Atap miring 1 sisi (mono-pitch) memberikan siluet modern yang tegas sekaligus mengalirkan air hujan tropis ke satu arah. Kolom struktur K1 diteruskan dari pondasi footplat hingga menopang kemiringan atap secara langsung.'
-        },
-        roof: {
-          title: 'LAPIS 01 // ATAP MIRING 1 SISI (MONO-PITCH ROOF + OVERSTEK)',
-          body: 'Menggunakan kemiringan tunggal dari EL +6.4m (kiri) naik ke EL +10.4m (kanan). Celah tinggi di bawah atap dimanfaatkan sebagai bukaan kaca Clerestory untuk membuang udara panas dari plafon Lantai 2.'
-        },
-        columns: {
-          title: 'LAPIS 02 // KOLOM STRUKTUR UTAMA MENERUS BAWAH–ATAS (K1 15×40)',
-          body: '12 titik kolom beton bertulang K1 berdiri menerus tanpa putus dari pondasi footplat bawah tanah, mengikat balok sloof dan plat lantai 2, hingga menyatu langsung dengan balok miring kuda-kuda atap.'
-        },
-        slab2: {
-          title: 'LAPIS 03 // PLAT LANTAI 2, KANOPI BAJA WF & SECONDARY SKIN KAYU',
-          body: 'Plat beton Lantai 2 (tebal 12 cm) berpadu dengan kanopi carport baja WF bentang 7 meter tanpa tiang tengah serta kisi kayu vertikal peneduh matahari sore.'
-        },
-        foundation: {
-          title: 'LAPIS 04 // PONDASI FOOTPLAT BETON K-300 & BALOK SLOOF (EL -1.50M)',
-          body: 'Telapak pondasi footplat 100×100 cm pada kedalaman -1.50m dihubungkan oleh grid balok sloof 20×35 cm untuk meredam penurunan diferensial dan beban gempa SNI 2847.'
-        }
-      };
-
-
-      layerBtns.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          aboutHighlight = btn.getAttribute('data-inspect-layer');
-          layerBtns.forEach(function (b) { b.classList.toggle('active', b === btn); });
-          const sp = layerSpecs[aboutHighlight];
-          if (sp) {
-            aboutSpecTitle.textContent = sp.title;
-            aboutSpecBody.textContent = sp.body;
-          }
-          aboutIsoReadout.textContent = 'LAPIS: ' + aboutHighlight.toUpperCase();
-        });
-      });
-
-
-      // Interactive Parametric Space Simulator in #about
+            // Interactive Parametric Space Simulator in #about
       const simAreaSlider = document.getElementById('sim-area-slider');
       const simAreaLabel = document.getElementById('sim-area-label');
       const simOutCols = document.getElementById('sim-out-cols');
