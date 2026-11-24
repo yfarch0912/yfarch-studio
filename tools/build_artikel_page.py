@@ -324,6 +324,7 @@ def main() -> None:
     urls = [(BASE + "/", iso_date(notes[0]["date"])),
             (BASE + "/artikel", iso_date(notes[0]["date"]))]
     urls += [(f'{BASE}/artikel/{n["slug"]}', iso_date(n["date"])) for n in notes]
+    urls += [(BASE + "/work/rumah-modern-2-lantai", "2026-11-24")]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for loc, lastmod in urls:
