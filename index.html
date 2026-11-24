@@ -588,7 +588,7 @@
       grid-template-columns: 3.5fr 8.5fr;
       gap: 44px;
       align-items: start;
-      margin-bottom: 52px;
+      margin-bottom: 40px;
     }
 
     .meta-label {
@@ -602,11 +602,11 @@
     }
 
     .about-statement {
-      font-size: clamp(26px, 3vw, 44px);
+      font-size: clamp(20px, 2vw, 27px);
       font-weight: 400;
-      line-height: 1.16;
-      letter-spacing: -0.035em;
-      color: #111111;
+      line-height: 1.45;
+      letter-spacing: -0.02em;
+      color: #26261F;
     }
 
     .reveal-word {
@@ -644,7 +644,7 @@
     }
 
     .sim-out-val {
-      font-size: 17px;
+      font-size: 15.5px;
       font-weight: 600;
       letter-spacing: -0.02em;
       color: #111;
@@ -666,22 +666,12 @@
     }
 
     .stat-item:hover {
-      transform: translateY(-4px);
+      transform: translateY(-2px);
       border-color: #111111;
-      background: #111112;
-      color: #FFFFFF;
-    }
-
-    .stat-item:hover .stat-num {
-      color: var(--accent-lime);
-    }
-
-    .stat-item:hover .stat-desc {
-      color: rgba(255, 255, 255, 0.78);
     }
 
     .stat-num {
-      font-size: clamp(36px, 3.8vw, 56px);
+      font-size: clamp(30px, 2.8vw, 40px);
       font-weight: 400;
       letter-spacing: -0.04em;
       line-height: 1;
@@ -2297,9 +2287,9 @@
       <!-- Interactive Parametric Space & RAB Calculator Bar -->
       <div class="about-simulator-bar">
         <div>
-          <span class="meta-label" style="color:var(--accent-violet)">SIMULASI KAPASITAS LAHAN &amp; STRUKTUR</span>
-          <div style="font-size:16px;font-weight:600;margin-bottom:8px">Target Luas Bangunan: <span id="sim-area-label" style="color:var(--accent-violet)">150 m² (2 Lantai Tropis)</span></div>
-          <input type="range" id="sim-area-slider" min="70" max="400" step="5" value="150" style="width:100%;accent-color:var(--accent-violet)" aria-label="Target Luas Bangunan" />
+          <span class="meta-label">SIMULASI KAPASITAS LAHAN &amp; STRUKTUR</span>
+          <div style="font-size:16px;font-weight:600;margin-bottom:8px">Target Luas Bangunan: <span id="sim-area-label" style="color:#111111">150 m² (2 Lantai Tropis)</span></div>
+          <input type="range" id="sim-area-slider" min="70" max="400" step="5" value="150" style="width:100%;accent-color:#111111" aria-label="Target Luas Bangunan" />
         </div>
 
         <div class="sim-outputs-grid">
